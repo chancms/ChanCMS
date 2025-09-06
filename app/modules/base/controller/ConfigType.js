@@ -2,8 +2,10 @@ import dayjs from "dayjs";
 const {
   config,
   helper: {
-    utils: { setToken, getToken, bcrypt },
-    api: { success, fail },
+    setToken, getToken, 
+  },
+  common: {
+    success, fail ,
   },
 } = Chan;
 

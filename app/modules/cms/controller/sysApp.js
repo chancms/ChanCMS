@@ -3,9 +3,9 @@ import fs from 'fs';
 
 const {
  
-  helper: {
-    api: { success },
-    utils: { getHtmlFilesSync },
+  common: {
+    success ,
+    getHtmlFilesSync
   },
 } = Chan;
 import sysApp from "../service/sysApp.js";

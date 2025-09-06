@@ -1,7 +1,7 @@
 const {
  
-  helper: {
-    api: { success },
+  common: {
+    success, fail ,
   },
   config
 } = Chan;

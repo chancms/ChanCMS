@@ -1,6 +1,6 @@
 export const APP_NAME = "ChanCMS";
-export const APP_VERSION = "3.1.2";
-export const APP_VERSION_TIME = "2025-07-02";
+export const APP_VERSION = "3.3.1";
+export const APP_VERSION_TIME = "2025-09-06";
 export const APP_AUTHOR_EMAIL = "867528315@qq.com";
 export const APP_AUTHOR_WECHAT = "yanyutao2014";
 export const port = process.env.PORT || "3000";

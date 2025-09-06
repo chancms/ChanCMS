@@ -2,8 +2,8 @@ import dayjs from "dayjs";
 import * as cheerio from "cheerio";
 import {safeExecuteUserFunction,isValidTargetUrl} from "../../../middleware/guard.js";
 const {
-  helper: {
-    api: { success },
+  common: {
+    success ,
   },
 } = Chan;
 

@@ -7,15 +7,14 @@ const {
   
   },
   helper: {
-    utils: { setToken, getToken },
+   setToken, getToken
   },
 } = Chan;
 import configService from "../modules/base/service/Config.js";
 
 export default (permsStr) => {
   return async (req, res, next) => {
-    const token = req.cookies.token || req.headers.auth || "";
-
+    const token = req.cookies.token || req.headers.token || "";
     if (token) {
       try {
         const { username, uid, exp } = await getToken(token, JWT_SECRET);

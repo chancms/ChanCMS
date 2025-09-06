@@ -1,6 +1,6 @@
 const {
-  helper: {
-    api: { success, fail },
+  common: {
+    success, fail
   },
 } = Chan;
 import field from "../service/field.js";

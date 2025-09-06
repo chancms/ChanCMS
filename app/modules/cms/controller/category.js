@@ -1,6 +1,6 @@
 const {
-  helper: {
-    api: { success },
+  common: {
+    success ,
   },
 } = Chan;
 

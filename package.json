@@ -17,7 +17,7 @@
   "dependencies": {
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
-    "chanjs": "^2.0.4",
+    "chanjs": "^2.0.6",
     "cheerio": "^1.1.2",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.1",

@@ -1,6 +1,6 @@
 const {
-  helper: {
-    api: { success },
+  common: {
+    success, fail ,
   },
 } = Chan;
 import tag from "../service/tag.js";

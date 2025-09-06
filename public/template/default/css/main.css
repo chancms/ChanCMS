@@ -3,14 +3,14 @@
     font-family: 'chanyue';
     src: url('../font/chanyue.ttf');
     font-weight: normal;
-    font-style: normal;
+    font-style: normal
 }
 
 a {
-    color: #262626;
+    color: #262626
 }
 
-[v-clock] {
+[v-clock],.code {
     display: none;
 }
 
@@ -422,7 +422,7 @@ html {
     height: 290px;
 }
 
-.mySwiper {
+.swiper {
     width: 400px !important;
     height: 290px !important;
     border-radius: 8px;
@@ -430,7 +430,7 @@ html {
     z-index: 0;
 }
 
-.mySwiper h3 {
+.swiper h3 {
     color: #ffffff;
     position: absolute;
     z-index: 100;

@@ -1,8 +1,8 @@
 const {
   helper: {
-    utils: {  tree },
-    api: { success,fail },
+      tree 
   },
+  common:{success,fail }
 } = Chan;
 
 import Site from "../../cms/service/Site.js";

@@ -1,9 +1,12 @@
 import path from "path";
 const {
   knex,
-  helper: {
-    utils: { filterImgFromStr, delImg },
-  },
+  // helper: {
+  //   utils: { filterImgFromStr, delImg },
+  // },
+  common: {
+    filterImgFromStr, delImg
+  }
 } = Chan;
 
 let model = "cms_article";

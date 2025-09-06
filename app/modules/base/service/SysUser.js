@@ -35,10 +35,15 @@ let SysUserService = {
     // 查询 sys_user_role 表获取角色信息
     const roles = await knex("sys_user_role")
       .select("role_id")
-      .where("user_id", id);
+      .where("user_id", id).first();
+
+     const _role = await knex("sys_role")
+      .select("key")
+      .where("id", roles.role_id).first();
 
     // 将角色信息添加到用户详情对象中
-    res.data.roles = roles.map((role) => role.role_id);
+    res.data.role = _role.key;
+
     return res;
   },
 

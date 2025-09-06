@@ -59,8 +59,8 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 ```javascript
 |- app
     |- helper      //工具函数
-    |- common      //通用函数库(分页, 文件上传, 加密, 解密, 校验, 转换, 等)
-    |- extend      //第三方组件扩展（hono和第三方组件的扩展）
+    |- common      //业务逻辑(分页, 文件上传等)
+    |- extend      //第三方包扩展（可选）
     |- middleware  //全局中间件
     |- modules     //多模块mvc
         |- api 
@@ -86,7 +86,7 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
             |- service 
             |- view 
             |- router.js
-    |- plugin //插件
+    |- plugin //插件（可选）
         |- plus-module1 
             |- controller 
             |- service 
@@ -143,8 +143,7 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 
 ## ❤️项目关注
 
-* **码云：<https://gitee.com/chancms/ChanCMS>**
-* **Github：<https://github.com/chancms/ChanCMS>**
+* **码云：<https://gitee.com/yanyutao0402/chanyue-cms>**
 
 ## 👴项目交流
 

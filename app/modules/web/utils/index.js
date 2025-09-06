@@ -1,10 +1,9 @@
 const {
-  helper,
   config,
-} = Chan;
-const {
-  utils: { pages, getChildrenId, treeById, filterFields, htmlDecode },
-} = helper;
+  treeById, filterFields, htmlDecode
+} = Chan.helper;
+
+const {pages,getChildrenId} = Chan.common;
 
 /**
  * @description 根据导航栏目获取首页视图文件

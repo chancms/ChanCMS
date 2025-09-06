@@ -1,6 +1,6 @@
 const {
-  helper: {
-    api: { success },
+  common: {
+    success, fail ,
   },
 } = Chan;
 import SysRoleMenu from "../service/SysRoleMenu.js";

@@ -1,13 +1,7 @@
 import auth  from "../../middleware/auth.js";
 import init from "../../middleware/init.js";
-const { 
-  upload:{
-    singleUpload,
-    multiUpload,
-    logo
-  },
-loadController } = Chan.helper;
-
+const { loadController } = Chan.helper;
+const { singleUpload, multiUpload, logo} = Chan.common;
 let controller = await loadController("base");
 export default (app, router, config) => {
   router.use(init());

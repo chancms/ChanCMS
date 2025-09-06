@@ -1,6 +1,6 @@
 const {
   config,
-  helper: { utils },
+  helper: { tree },
 } = Chan;
 
 import home from "../service/home.js";
@@ -16,7 +16,7 @@ export default () => {
       // 站点
       const { site, category, friendlink, frag, tag } = await home.init();
       //导航
-      const nav = utils.tree(category);
+      const nav = tree(category);
       req.app.locals = {
         ...req.app.locals,
         appName,

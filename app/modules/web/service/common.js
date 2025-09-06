@@ -1,11 +1,6 @@
 const {
   knex,
-  helper: {
-    utils: { 
-      filterFields, 
-      convertArrayToObject
-    },
-  },
+  helper: { filterFields,arrToObj },
 } = Chan;
 
 const common = {
@@ -31,7 +26,7 @@ const common = {
       throw err;
     }
   },
-  
+
   // 网站栏目
   async category() {
     try {
@@ -123,7 +118,10 @@ const common = {
   async getArticleListByCid({ cid, len = 5, attr = [] }) {
     try {
       // 获取所有id
-      const res = await knex.select("id").from("cms_category").where("pid", cid);
+      const res = await knex
+        .select("id")
+        .from("cms_category")
+        .where("pid", cid);
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件
       let queryBuilder = knex
@@ -168,27 +166,34 @@ const common = {
   async getArticleListByCidCate({ cid, len = 5, attr = [] }) {
     try {
       // 获取当前栏目及其所有子栏目（包含 pinyin）
-      const res = await knex.select("id", "pinyin").from("cms_category").where("pid", cid);
-      const childCategories = res.filter(item => item.id !== cid); // 子栏目
-      const allCategoryIds = [...childCategories.map(item => item.id)];
+      const res = await knex
+        .select("id", "pinyin")
+        .from("cms_category")
+        .where("pid", cid);
+      const childCategories = res.filter((item) => item.id !== cid); // 子栏目
+      const allCategoryIds = [...childCategories.map((item) => item.id)];
 
       if (allCategoryIds.length === 0) return {};
 
       // 构建一个 id -> pinyin 的映射
       const idToPinyin = Object.fromEntries(
-        res.map(item => [item.id, item.pinyin])
+        res.map((item) => [item.id, item.pinyin])
       );
 
       // 如果是叶子节点（没有子栏目），就只查自己
       if (res.length === 0 && cid !== 0) {
-        const category = await knex.select("pinyin").from("cms_category").where("id", cid).first();
+        const category = await knex
+          .select("pinyin")
+          .from("cms_category")
+          .where("id", cid)
+          .first();
         if (category) {
           idToPinyin[cid] = category.pinyin;
         }
       }
 
       // 构建每个子栏目（包括父栏目）的查询 Promise
-      const fetchPromises = allCategoryIds.map(id => {
+      const fetchPromises = allCategoryIds.map((id) => {
         let queryBuilder = knex
           .select(
             "a.id",
@@ -224,7 +229,7 @@ const common = {
       // 将结果按 pinyin 分组整理成对象
       const grouped = {};
       allCategoryIds.forEach((id, index) => {
-        const pinyin = idToPinyin[id] || 'default';
+        const pinyin = idToPinyin[id] || "default";
         grouped[pinyin] = results[index] || [];
       });
 
@@ -381,17 +386,15 @@ const common = {
         // 获取子栏目ID（同步查询优化）
         const subIds = await knex("cms_category")
           .select("id")
-          .where("pid", Number(cid))  // 确保类型匹配
+          .where("pid", Number(cid)) // 确保类型匹配
           .pluck("id");
-        
-        const targetIds = [...subIds, Number(cid)];  // 包含当前栏目
+
+        const targetIds = [...subIds, Number(cid)]; // 包含当前栏目
         query.whereIn("a.cid", targetIds);
-      }    
+      }
 
       // 3. 执行优化后的查询
-      return query
-        .orderBy("a.pv", "DESC")
-        .limit(len);
+      return query.orderBy("a.pv", "DESC").limit(len);
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
       throw err;
@@ -611,7 +614,7 @@ const common = {
     try {
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(["id", "title", "imgUrl", "linkUrl","content"])
+        .select(["id", "title", "imgUrl", "linkUrl", "content"])
         .from("cms_slide")
         .limit(pageSize)
         .offset(offset)
@@ -654,8 +657,7 @@ const common = {
         .limit(pageSize)
         .offset(0)
         .orderBy("id", "desc");
-
-      const frags = convertArrayToObject(list, "mark");
+      const frags = arrToObj(list, "mark","content");
       return frags;
     } catch (err) {
       console.error(err);
@@ -674,9 +676,7 @@ const common = {
         .limit(pageSize)
         .offset(0)
         .orderBy("count", "desc");
-
-      const obj = convertArrayToObject(res, "mark");
-      return obj;
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
@@ -716,7 +716,7 @@ const common = {
       throw err;
     }
   },
-  
+
   // 上一篇文章
   async prev({ id, cid }) {
     try {
@@ -871,7 +871,7 @@ const common = {
     // 提取总记录数
     const total = totalResult?.total || 0;
     return needCount ? { data, total, current, pageSize } : data;
-  }
+  },
 };
 
 export default common;

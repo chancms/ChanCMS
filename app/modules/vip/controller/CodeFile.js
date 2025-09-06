@@ -1,14 +1,12 @@
 const {
   helper: {
-    file: { 
       getFileTree, 
       readFileContent, 
       saveFileContent, 
       isPathSafe 
-    },
-    api: { success },
   },
-} = Chan;
+  common: { success, fail }
+} = Chan
 import path from "path";
 let CodeFileController = {
   // 获取站点信息
@@ -34,7 +32,7 @@ let CodeFileController = {
       let fullPath = ''
       let paths = req.query.path;
       if (paths) {
-        fullPath =  path.join(APP_PATH, paths);
+        fullPath =  path.join(ROOT_PATH, paths);
       }else{
         fullPath =  path.join(ROOT_PATH, "/public/uploads", req.app.locals.template);
       }

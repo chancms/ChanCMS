@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 const {
-  helper: {
-    api: { success },
+  common: {
+    success
   },
 } = Chan;
 import gather from "../service/gather.js";

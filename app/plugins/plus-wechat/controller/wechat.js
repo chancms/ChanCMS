@@ -1,7 +1,7 @@
 const {
   config,
-  helper: {
-    api: { success },
+  common: {
+    success, fail ,
   },
 } = Chan;
 class WechatController {

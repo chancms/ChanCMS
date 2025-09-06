@@ -1,13 +1,22 @@
 import qiniu from "qiniu";
 const { knex } = Chan;
-let model = "cms_model";
-let db = Chan.Service(knex, model);
+let db = Chan.Service(knex, "sys_config");
 const pageSize = 100;
 
-let QiniuService = {
+export default {
+  async getConfig() {
+    let res = await db.query({
+      current: 1,
+      pageSize: 10,
+      query: { "type_code": "qiniu_oss" },
+      field: ["config_key", "config_value"],
+    });
+    return res;
+  },
   // 生成上传token
   async getUploadToken(config) {
     const { accessKey, secretKey, bucket } = config;
+
     let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     // 上传凭证
     let options = {
@@ -35,6 +44,7 @@ let QiniuService = {
 
   //七牛云上传
   async upload(file, config) {
+
     let date = new Date();
     let year = date.getFullYear();
     let month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -69,7 +79,5 @@ let QiniuService = {
         }
       );
     });
-  }
-}
-
-export default QiniuService;
+  },
+};

@@ -94,7 +94,7 @@
 
                 <!-- 最新 -->
                 <section class="notices pd-20 mb-20 bg-fff">
-                    <h3 class="m-title border-dashed f-16 flex justify-between">{{navSub.name}}最新文章<span class="more">more</span>
+                    <h3 class="m-title border-dashed f-16 flex justify-between">{{cate.name}}最新文章<span class="more">more</span>
                     </h3>
                     <ul class="mt-10">
                         {{each news}}
@@ -110,7 +110,7 @@
 
                 <!-- 图文 热门 -->
                 <section class="notices pd-20 mb-20 bg-fff">
-                    <h3 class="m-title border-dashed f-16 flex justify-between">{{navSub.name}}推荐图文</h3>
+                    <h3 class="m-title border-dashed f-16 flex justify-between">{{cate.name}}推荐图文</h3>
                     {{each imgs}}
                     <figure class="flex justify-between mt-10 ">
                         {{if $value.img}}
@@ -160,25 +160,7 @@
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
     
-    <div class="ignore api mb-20 mt-20 pd-20 bg-f2f2f2">
-        <h1>ChanCMS 当前页面数据：</h1>
-        <p class="mb-20">site-> {{site}} </p>
-        <p class="mb-20">nav-> {{nav}} </p>
-        <p class="mb-20">category-> {{category}}</p>
-        <p class="mb-20">friendlink-> {{friendlink}}</p>
-        <p class="mb-20">static_url-> {{static_url}}</p>
-        <p class="mb-20">frag--->{{frag}}</p>
-        <p class="mb-20">tag--->{{tag}}</p>
-        <p class="mb-20">position------>{{position}}</p>
-        <p class="mb-20">navSub------>{{navSub}}</p>
-        <p class="mb-20">article------>{{article}}</p>
-        <p class="mb-20">article.tags------>{{article.tags}}</p>
-        <p class="mb-20">news------>{{news}}</p>
-        <p class="mb-20">hot------>{{hot}}</p>
-        <p class="mb-20">imgs------>{{imgs}}</p>
-        <p class="mb-20">pre------>{{pre}}</p>
-        <p class="mb-20">next------>{{next}}</p>
-    </div>
+    
     {{include './common/js.html'}}
     <script src="{{static_url}}/js/katelog.min.js"></script>
     <script>

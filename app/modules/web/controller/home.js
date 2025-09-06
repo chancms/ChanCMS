@@ -1,7 +1,8 @@
 const {
-  helper: {
-    utils: { getChildrenId, treeById },
+  common: {
+    getChildrenId, 
   },
+  helper:{treeById,}
 } = Chan;
 
 import common from "../service/common.js";

@@ -1,13 +1,12 @@
 const {
   config,
-  helper: {
-    utils: { getToken },
-    api: { success, fail },
+  helper: { getToken},
+  common: {
+    success, fail ,
   },
 } = Chan;
 import SysMenu from "../service/SysMenu.js";
-let SysMenuController ={
-
+let SysMenuController = {
   async list(req, res, next) {
     try {
       const query = req.query;
@@ -18,11 +17,11 @@ let SysMenuController ={
     }
   },
 
-  async allRouter(req,res,next) {
+  async allRouter(req, res, next) {
     try {
-      let {id} = req.query;
+      let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token;
+        const token = req.cookies.token || req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
@@ -36,11 +35,11 @@ let SysMenuController ={
     }
   },
 
-  async allPerms(req,res,next) {
+  async allPerms(req, res, next) {
     try {
-      let {id} = req.query;
+      let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token;
+        const token = req.cookies.token || req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
@@ -95,8 +94,7 @@ let SysMenuController ={
     } catch (err) {
       next(err);
     }
-  }
-
-}
+  },
+};
 
 export default SysMenuController;

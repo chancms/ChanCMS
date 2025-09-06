@@ -1,9 +1,13 @@
 import auth  from "../../middleware/auth.js";
 import init from "../../middleware/init.js";
 
-const {upload:{singleUpload},loadController } = Chan.helper;
+
+const { 
+loadController } = Chan.helper;
+const { singleUpload, } = Chan.common;
 
 let controller = await loadController("cms");
+
 export default (app, router, config) => {
 
   router.use(init());

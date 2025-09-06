@@ -1,8 +1,6 @@
 const {
   knex,
-  helper: {
-    utils: { convertArrayToObject },
-  },
+ helper:{arrToObj},
 } = Chan;
 
 let model = "cms_frag";
@@ -58,7 +56,7 @@ let FragService = {
         // .offset(offset)
         .orderBy("id", "desc");
 
-      const frags = convertArrayToObject(list, "mark");
+      const frags = arrToObj(list, "name","content");
       return frags;
       // const count = total[0].count || 1;
       // return {

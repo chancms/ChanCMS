@@ -1,6 +1,6 @@
 let {
   helper: {
-    utils: { filterFields },
+     filterFields ,
   }
 } = Chan;
 import common from './common.js';

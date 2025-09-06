@@ -1,8 +1,10 @@
 const {
   config,
   helper: {
-    utils: { getToken },
-    api: { success, fail },
+    getToken,
+  },
+  common: {
+    success, fail ,
   },
 } = Chan;
 import SysRole from "../service/SysRole.js";

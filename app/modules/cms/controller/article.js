@@ -1,12 +1,17 @@
 import dayjs from "dayjs";
 import path from "path";
-import {safePathSchema} from "../../../middleware/guard.js"
+import { safePathSchema } from "../../../middleware/guard.js";
 const {
-  config: { version, appName, port, versionTime, author },
-  helper: {
-    utils: { filterBody, delImg },
-    api: { success,fail },
+  config: {
+    APP_VERSION,
+    APP_NAME,
+    port,
+    APP_VERSION_TIME,
+    APP_AUTHOR_EMAIL,
+    APP_AUTHOR_WECHAT,
   },
+  helper: { delImg },
+  common: { success, fail, filterBody },
 } = Chan;
 import article from "../service/article.js";
 
@@ -146,11 +151,17 @@ let ArticleController = {
 
   async tongji(req, res, next) {
     try {
-      
       const data = await article.tongji();
       res.json({
         ...success,
-        data: { ...data, version, appName, port, versionTime, author },
+        data: {
+          ...data,
+          APP_VERSION,
+          APP_NAME,
+          APP_VERSION_TIME,
+          APP_AUTHOR_EMAIL,
+          APP_AUTHOR_WECHAT,
+        },
       });
     } catch (err) {
       next(err);
@@ -163,15 +174,19 @@ let ArticleController = {
       let filePath = path.join(APP_PATH, url);
       const result = safePathSchema.safeParse(url);
       if (!result.success) {
-        return res.json({ ...fail, data:[], msg:'非法访问路径: 禁止访问系统目录' });
+        return res.json({
+          ...fail,
+          data: [],
+          msg: "非法访问路径: 禁止访问系统目录",
+        });
       }
       let data = delImg(filePath);
       res.json({ ...success, data });
     } catch (err) {
-      console.error('1111',err);
+      console.error("1111", err);
       next(err);
     }
-  }
-}
+  },
+};
 
 export default ArticleController;

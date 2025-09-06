@@ -2,13 +2,15 @@ import dayjs from "dayjs";
 const {
   config,
   helper: {
-    utils: { setToken, getToken, bcrypt },
-    api: { success, fail },
+    setToken, getToken, 
+  },
+  common: {
+    success, fail ,
   },
 } = Chan;
 import SysUser from "../service/SysUser.js";
 import SysMenu from "../service/SysMenu.js";
-
+import bcrypt from "bcryptjs";
 let SysUserController = {
   async login(req, res, next) {
     try {
@@ -60,7 +62,7 @@ let SysUserController = {
   async create(req, res, next) {
     try {
       const body = req.body;
-      body.password = await bcrypt.hash(body.password, config.PASSWORD_SALT);
+      body.password = await bcrypt.hash(body.password, parseInt(config.PASSWORD_SALT));
       const data = await SysUser.create(body);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -73,7 +75,7 @@ let SysUserController = {
     try {
       let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token;
+        const token = req.cookies.token || req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
@@ -104,7 +106,7 @@ let SysUserController = {
       let { userId, username, status, role_id, password } = req.body;
       let params = { userId, username, status, role_id };
       if (password) {
-        password = await bcrypt.hash(password, config.PASSWORD_SALT);
+        password = await bcrypt.hash(password, parseInt(config.PASSWORD_SALT));
         params.password = password;
       }
       const data = await SysUser.update(params);

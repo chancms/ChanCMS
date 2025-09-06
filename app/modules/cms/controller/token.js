@@ -3,8 +3,10 @@ const {
     JWT_SECRET, JWT_EXPIRES_IN,
   },
   helper: {
-    api: { success },
-    utils: { setToken, getToken },
+   setToken, getToken
+  },
+  common: {
+    success, fail ,
   },
 } = Chan;
 

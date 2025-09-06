@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 const {
   config,
   helper: {
-    utils: { getToken },
-    api: { success },
+     getToken ,
   },
+  common: {success}
 } = Chan;
 import loginLog from "../service/loginLog.js"
 let LoginLogController = {

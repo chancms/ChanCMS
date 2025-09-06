@@ -23,7 +23,7 @@
             <article class="article-index">
                 <section class="flex flex-wrap justify-between gap-10  mb-20" >
                     {{ if banner&&banner.length>0}}
-                    <div class="swiper mySwiper">
+                    <div class="swiper">
                         <div class="swiper-wrapper">
                             {{each banner}}
                             <div class="swiper-slide">
@@ -197,27 +197,7 @@
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
 
-    <div class="api ignore mb-20 mt-20 pd-20 bg-f2f2f2">
-        <h1>ChanCMS 当前页面数据：</h1>
-        <p class="mb-20">site-> {{site}} </p>
-        <p class="mb-20">frag-> {{frag}} </p>
-        <p class="mb-20">banner->  {{banner}}</p>
-        <p class="mb-20">site-> {{site}} </p>
-        <p class="mb-20">111-->{{site.json.siteSubtitle}}</p>
-        <p class="mb-20">nav-> {{nav}} </p>
-        <p class="mb-20">category-> {{category}}</p>
-        <p class="mb-20">friendlink-> {{friendlink}}</p>
-        <p class="mb-20">baseUrl-> {{baseUrl}}</p>
-        <p class="mb-20">tag--->{{tag}}</p>
-        <p class="mb-20">slide--->{{slide}}</p>
-        <p class="mb-20">topnews--->{{topnews}}</p>
-        <p class="mb-20">article--->{{article}}</p>
-        <p class="mb-20">articleList--->{{articleList}}</p>
-        <p class="mb-20">imgs--->{{imgs}}</p>
-        <p class="mb-20">recommendImgs--->{{recommendImgs}}</p>
-        <p class="mb-20">test--->{{test}} </p>
-
-    </div>
+    
     
     {{include './common/js.html'}}
     
