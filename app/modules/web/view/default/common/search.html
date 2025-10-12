@@ -1,26 +1,75 @@
 <div class="flex search-wrap">
-    <div class="search flex  align-center justify-center">
-        <!-- <i class="ico-search mr-4 ml-4">
+ 
+  <div class="search flex align-center justify-center">
+    <!-- <i class="ico-search mr-4 ml-4">
             <svg viewBox="0 0 1024 1024" class="ico-search" xmlns="http://www.w3.org/2000/svg">
                 <path fill="currentColor"
                     d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z">
                 </path>
             </svg>
         </i> -->
-        <input id="search" class="search-input pl-10 pr-10" type="text" maxlength="10" autocomplete="off" placeholder="搜索点什么">
-    </div>
-    <button class="ml-5 el-button--primary search-btn" onclick="toSearch()">搜索</button>
+    <input
+      id="search"
+      class="search-input pl-10 pr-10"
+      type="text"
+      maxlength="10"
+      autocomplete="off"
+      placeholder="搜索点什么"
+    />
+  </div>
+  <button class="ml-5 el-button--primary search-btn" onclick="toSearch()">
+    搜索
+  </button>
+  
+    <div class="ml-20 f-14 flex items-center">
+            <p class="none" id="login">
+            <a href="/public/user/index.html#/reg">注册</a> |
+            <a href="/public/user/index.html#/login">登录</a>
+            </p>
+            <p class="none" id="user">
+                您好，<a class="mt-5 el-button c-1A85F8 mr-5" href="/public/user/index.html#/index">个人中心</a>
+            </p>
+        </div>
 </div>
 <style>
-    .search-wrap {
-        padding: 10px;
+ 
+  .search-wrap {
+    padding: 10px;
+  }
+
+  .ico-search {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    color: #d7d7d7;
+  }
+  .c-1A85F8 {
+    color: #1A85F8;
+  }
+</style>
+
+<script>
+  window.onload = function () {
+    // 检查是否存在用户信息
+    const userInfo = getCookie("un");
+    if (userInfo) {
+      // 存在用户信息，更新登录状态
+      document.getElementById("login").style.display = "none";
+      document.getElementById("user").style.display = "block";
+      document.querySelector("#user a").innerText = `${userInfo}`;
+
+       // 存在用户信息，更新登录状态
+      document.getElementById("waplogin").style.display = "none";
+      document.getElementById("wapuser").style.display = "block";
+      document.querySelector("#wapuser a").innerText = `${userInfo}`;
+    } else {
+      // 不存在用户信息，更新登录状态
+      document.getElementById("login").style.display = "block";
+      document.getElementById("user").style.display = "none";
+
+       document.getElementById("waplogin").style.display = "block";
+      document.getElementById("wapuser").style.display = "none";
     }
 
- 
-    .ico-search {
-        width: 18px;
-        height: 18px;
-        display: inline-block;
-        color: #d7d7d7;
-    }
-</style>
+  };
+</script>

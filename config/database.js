@@ -11,5 +11,6 @@ export const db = [
     max: parseInt(process.env.DB_POOL_MAX || 2),
     min: parseInt(process.env.DB_POOL_MIN || 0),
     debug: debug,
+    filename: process.env.DB_FILENAME || "",
   },
 ];

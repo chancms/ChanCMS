@@ -58,7 +58,7 @@
                             <li class="f-14 pt-4 pb-4 flex justify-between">
                                 <a href="{{$value.path}}/article-{{$value.id}}.html"
                                     title="{{$value.title}}">{{$value.title}}</a>
-                                <time class="c-999">{{$value.createdAt}}</time>
+                                <time class="c-999">{{ dateFormat($value.createdAt, 'YYYY-MM-DD') }}</time>
                             </li>
                             {{/each}}
                         </ul>
@@ -93,7 +93,7 @@
                             {{each $value.list}}
                             <li class="f-14 pt-4 pb-4 flex justify-between"><a
                                     href="{{$value.path}}/article-{{$value.id}}.html" {{$value.title}}>{{$value.title}}</a><time
-                                    class="c-999">{{$value.createdAt}}</time></li>
+                                    class="c-999">{{ dateFormat($value.createdAt, 'YYYY-MM-DD HH:mm:ss') }}</time></li>
                             {{/each}}
                         </ul>
                         {{/if}}

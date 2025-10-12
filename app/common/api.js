@@ -11,10 +11,10 @@ export const fail = {
 export const error = {
   code: 500,
   msg: "error",
-}
+};
 
 export default {
   success,
   fail,
   error,
-}
+};

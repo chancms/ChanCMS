@@ -1,4 +1,5 @@
-
+import fs from 'fs';
+import path from 'path';
 /**
  * @description 输出分页标签
  * @param {*} current 当前页面

@@ -26,11 +26,11 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 * 扩展模型
 * 文章采集
 * 用户管理
+* 会员中心
 * 菜单管理
 * 登录日志
 * 在线留言
-* 中英切换
-* 语音播报
+* 多语言
 * pdf预览（按需加载）
 * 本地上传&七牛云上传
 * 日志功能
@@ -109,6 +109,8 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 
 ### 案例🍅️
 
+* [前行者 EWEADN](https://www.eweadn.cn)
+* [粤港澳大湾区教育创新协会](https://hk.bossyun.com/)
 * [北京辉达科技](http://www.huidaep.com/ )
 * [北京诺丰科技](http://www.novontrade.com/ )
 * [北京智慧城市供需对接平台](https://gongxudj.com/#/headerNav/newHome)
@@ -133,13 +135,14 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 <!-- * [同宇宙官网](http://www.zdmedia.com.cn:81/) -->
 <!-- * 十 [超前端](https://zoye.top/) -->
 
-* 演示站1 [雅俗共赏](http://www.cqsmservices.cn/)
+<!-- * 演示站1 [雅俗共赏](http://www.cqsmservices.cn/) -->
 
 ## 👵开发文档
 
 * **官网:<https://www.chancms.top>**
 * **官网文档 <https://www.chancms.top/docs/index.html>**
 * **视频教程：<https://space.bilibili.com/1885628820>**
+* **官网演示站<https://vip.chanyue.top>**
 
 ## ❤️项目关注
 

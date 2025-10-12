@@ -121,7 +121,6 @@ const QiniuController = {
 
       // 3. 提取文件信息
       const { originalname, filename, path: filePath } = file;
-
       try {
         // 4. 上传文件到七牛云
         const uploadResult = await qiniu.upload(file, {

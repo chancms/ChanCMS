@@ -11,7 +11,7 @@ let LoginLogController = {
   // 增
   async create(req, res, next) {
     try {
-      const token = req.cookies.token;
+      const token = req.headers.token;
       const user = await getToken(token, config.JWT_SECRET);
       let body = {
         uid: user.uid,

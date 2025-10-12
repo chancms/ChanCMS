@@ -1,18 +1,12 @@
 const {
   config,
-  helper: {
-     setToken, getToken,
-    
-  },
-  common: {
-    success, fail ,
-  },
+  helper: {setToken, getToken},
+  common: {success, fail},
 } = Chan;
 
 import Config from "../service/Config.js";
 
 let ConfigController =  {
-
 
   async list(req, res, next) {
     try {
@@ -87,8 +81,6 @@ let ConfigController =  {
      next(err);
    }
   }
-
-
 }
 
 export default ConfigController;

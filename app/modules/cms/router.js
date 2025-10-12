@@ -45,7 +45,7 @@ export default (app, router, config) => {
   //router.post("/upload", auth(), upload.any(), controller.article.upload);
   router.get("/article/delfile", auth(), controller.article.delfile);
   // 七牛云相关
-  router.get("/qiniu/getUploadToken", controller.qiniu.getUploadToken);
+  router.get("/qiniu/getUploadToken",auth(),  controller.qiniu.getUploadToken);
   router.post("/qiniu/upload", auth(), singleUpload(), controller.qiniu.upload);
 
   // 模型管理
@@ -104,8 +104,8 @@ export default (app, router, config) => {
   router.post("/slide/update", auth(), controller.slide.update);
 
   //页面采集
-  router.post("/collect/getPages", controller.collect.getPages);
-  router.post("/collect/getArticle", controller.collect.getArticle);
+  router.post("/collect/getPages", auth(),controller.collect.getPages);
+  router.post("/collect/getArticle",auth(), controller.collect.getArticle);
   router.get("/collect/list", controller.collect.list);
   router.get("/collect/search", controller.collect.search);
   router.get("/collect/detail", controller.collect.detail);

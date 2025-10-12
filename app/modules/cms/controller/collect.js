@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import * as cheerio from "cheerio";
-import {safeExecuteUserFunction,isValidTargetUrl} from "../../../middleware/guard.js";
+import {isValidTargetUrl} from "../../../middleware/guard.js";
+import {cleanHtml} from "../../../middleware/clearhtml.js";
 const {
   common: {
     success ,
@@ -32,17 +33,32 @@ let CollectController  = {
   //测试列表所有地址
   async getArticle(req, res, next) {
     try {
-      const { taskUrl, titleTag, articleTag, parseData, charset } = req.body;
+
+      const { taskUrl, titleTag, articleTag, parseData, charset = 'utf8' } = req.body;
+
+      // 1. 获取页面内容
       const dataStr = await collect.common(taskUrl, charset);
       const $ = cheerio.load(dataStr.toString(), { decodeEntities: false });
-      const title = $(`${titleTag}`).text().trim();
-      let str = safeExecuteUserFunction(parseData)
-
-      let run = new Function(`data`, str);
-
-      let data = $(`${articleTag}`).html();
-      let dataend = run(data);
-      res.json({ ...success, data: { title: title, article: dataend } });
+  
+      // 2. 提取标题
+      const title = $(titleTag).text().trim();
+  
+      // 3. 提取内容
+      let $content = $(articleTag).clone();
+      let html = $content.html();
+  
+      // 4. 应用清洗
+      const cleanOptions = JSON.parse(parseData) || {};
+      html = cleanHtml(html, cleanOptions);
+  
+      res.json({
+        ...success,
+        data: {
+          title,
+          article: html
+        }
+      });
+      
     } catch (error) {
       next(error);
     }

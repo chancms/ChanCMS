@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 
 const {
- 
   common: {
     success ,
     getHtmlFilesSync

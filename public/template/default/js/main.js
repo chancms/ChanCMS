@@ -1,5 +1,57 @@
 
+ /**
+     * 设置 Cookie（带过期时间）
+     * @param {string} key - 键
+     * @param {string} value - 值
+     * @param {number} days - 过期天数（可选）
+     */
+ function setCookie(key, value, days) {
+  let expires = '';
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = '; expires=' + date.toUTCString();
+  }
+  document.cookie = key + '=' + encodeURIComponent(value) + expires + '; path=/';
+}
 
+/**
+ * 获取 Cookie 值
+ * @param {string} key - 键
+ * @returns {string|null} 值或 null
+ */
+function getCookie(key) {
+  const name = key + '=';
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(name) === 0) {
+      return decodeURIComponent(c.substring(name.length));
+    }
+  }
+  return null;
+}
+
+/**
+ * 删除指定 Cookie
+ * @param {string} key - 键
+ */
+function removeCookie(key) {
+  setCookie(key, '', -1);
+}
+
+/**
+ * 清空所有 Cookie（当前域名下 path=/ 的）
+ */
+function clearAllCookies() {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+  }
+}
 
 
 
@@ -26,6 +78,10 @@ function toggleMenu() {
     menuButton.addEventListener("click", function () {
       mobileMenu.classList.toggle("none");
     });
+
+    mobileMenu.addEventListener("click", function () {
+      mobileMenu.classList.toggle("none");
+    })
   }
 }
 

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import fs from "fs";
 import path from "path";
 function createStorage(dir = "uploads", changeDir = true) {
- // 模板
+  // 模板
   return multer.diskStorage({
     // 目的地
     destination: async function (req, file, cb) {
@@ -21,8 +21,11 @@ function createStorage(dir = "uploads", changeDir = true) {
     },
     // 文件名
     filename: (req, file, cb) => {
-      // 根据时间戳生成文件名
-      cb(null, Date.now() + `_source_${file.originalname}`);
+      let originalName = file.originalname;
+      originalName = Buffer.from(originalName, 'binary').toString('utf8');
+      const safeName = originalName.replace(/[\\/*?:"<>|]/g, '_');
+      file.originalname = safeName;
+      cb(null, `${Date.now()}_source_${safeName}`); 
     },
   });
 }

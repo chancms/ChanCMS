@@ -1,5 +1,4 @@
 const {
- 
   common: {
     success, fail ,
   },

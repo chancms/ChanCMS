@@ -13,7 +13,6 @@ import ConfigType from "../service/ConfigType.js";
 
 let ConfigTypeController  = {
 
-
   async list(req, res, next) {
     try {
       const query = req.query || {};
@@ -67,7 +66,6 @@ let ConfigTypeController  = {
       next(err);
     }
   }
-
 
 }
 

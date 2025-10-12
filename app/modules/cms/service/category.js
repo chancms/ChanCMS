@@ -9,7 +9,7 @@ let CategoryService  = {
   // 增
   async create(body) {
     try {
-      const result = await db.insert(model, body);
+      const result = await db.insert(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);

@@ -4,4 +4,6 @@ export const modules = [
     "api",
     "vip",
     "web",
+    "user",
+    "proxy"
   ]

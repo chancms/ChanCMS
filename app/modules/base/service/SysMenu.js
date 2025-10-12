@@ -6,6 +6,44 @@ const {
 let db = Chan.Service(knex, "sys_menu");
 const pageSize = 100;
 
+// 获取角色关联的所有菜单ID，包括所有层级的父级菜单
+async function getAllMenuIdsWithParents(roleIds) {
+  // 步骤1: 获取角色直接关联的菜单ID
+  const directMenus = await knex('sys_role_menu')
+    .select('menu_id')
+    .whereIn('role_id', roleIds);
+  
+  let allMenuIds = [...new Set(directMenus.map(menu => menu.menu_id))];
+  
+  if (allMenuIds.length === 0) {
+    return [];
+  }
+  
+  // 步骤2: 循环获取所有父级菜单ID
+  while (true) {
+    // 获取当前所有菜单ID对应的父级ID
+    const parentMenus = await knex('sys_menu')
+      .select('pid')
+      .whereIn('id', allMenuIds)
+      .where('pid', '!=', 0); // 排除根节点
+    
+    const parentIds = [...new Set(parentMenus.map(menu => menu.pid))];
+    
+    // 筛选出不在已有菜单ID列表中的父级ID
+    const newParentIds = parentIds.filter(pid => !allMenuIds.includes(pid));
+    
+    // 如果没有新的父级ID，退出循环
+    if (newParentIds.length === 0) {
+      break;
+    }
+    
+    // 将新的父级ID添加到菜单ID列表中
+    allMenuIds = [...allMenuIds, ...newParentIds];
+  }
+  
+  return allMenuIds;
+}
+
 let SysMenuService = {
 
   async allRouter(userId) {
@@ -14,61 +52,32 @@ let SysMenuService = {
       const roles = await knex('sys_user_role')
         .select('role_id')
         .where('user_id', userId);
-
-      const roleId = roles.map(role => role.role_id);
-
-      if (roleId.length === 0) {
-        return [];
+  
+      const roleIds = roles.map(role => role.role_id);
+  
+      if (roleIds.length === 0) {
+        return { perms: [], routers: [] };
       }
-
-      // Step 2: 根据 role_id 查找 menu_id
-      const menus = await knex('sys_role_menu')
-        .select('menu_id')
-        .whereIn('role_id', roleId);
-
-      const menuIds = menus.map(menu => menu.menu_id);
-
-      if (menuIds.length === 0) {
-        return [];
+  
+      // Step 2: 获取所有相关的菜单ID，包括所有父级
+      const allMenuIds = await getAllMenuIdsWithParents(roleIds);
+      
+      if (allMenuIds.length === 0) {
+        return { perms: [], routers: [] };
       }
-
-      // Step 3: 根据 menu_id 查找具体的菜单信息
+  
+      // Step 3: 根据所有菜单ID查找具体的菜单信息
       let menuDetails = await knex('sys_menu')
-        .whereIn('id', menuIds)
+        .whereIn('id', allMenuIds)
         .select(['id', 'pid', 'title', 'name', 'path', 'component', 'icon', 'perms', 'type', 'is_show'])
         .whereNot('type', 'F');
+      
       // 提取 perms 到单独的数组
-    const perms = menuDetails
-    .filter(menu => menu.perms)
-    .map(menu => menu.perms);
-
-      // Step 4: 获取所有 pid 不为 0 的记录，并提取唯一的父级 id
-      const parentIds = [
-        ...new Set(
-          menuDetails
-            .filter(menu => menu.pid !== 0)
-            .map(menu => menu.pid)
-        )
-      ];
-
-      // 过滤掉已经在 menuDetails 中的父级菜单
-      const missingParentIds = parentIds.filter(pid =>
-        !menuDetails.some(menu => menu.id === pid)
-      );
-
-      // Step 5: 查询缺失的父级菜单
-      let parentMenus = [];
-      if (missingParentIds.length > 0) {
-        parentMenus = await knex('sys_menu')
-          .whereIn('id', missingParentIds)
-          .select(['id', 'pid', 'title', 'name', 'path', 'component', 'icon', 'perms', 'type', 'is_show'])
-          .whereNot('type', 'F');
-      }
-
-      // Step 6: 合并子菜单和父菜单
-      const finalMenuList = [...menuDetails, ...parentMenus];
-
-      return {perms,routers:finalMenuList};
+      const perms = menuDetails
+        .filter(menu => menu.perms)
+        .map(menu => menu.perms);
+  
+      return { perms, routers: menuDetails };
     } catch (error) {
       console.error('Error fetching user menus:', error);
       throw error;

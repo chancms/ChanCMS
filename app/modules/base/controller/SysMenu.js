@@ -21,7 +21,7 @@ let SysMenuController = {
     try {
       let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token || req.headers.token;
+        const token = req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
@@ -39,7 +39,7 @@ let SysMenuController = {
     try {
       let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token || req.headers.token;
+        const token = req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }

@@ -3,6 +3,7 @@ const {
   config,
   helper: {
     setToken, getToken, 
+    getIp
   },
   common: {
     success, fail ,
@@ -12,9 +13,10 @@ import SysUser from "../service/SysUser.js";
 import SysMenu from "../service/SysMenu.js";
 import bcrypt from "bcryptjs";
 let SysUserController = {
+
   async login(req, res, next) {
     try {
-      let { username, password } = req.body;
+      let { username, password,f, i } = req.body;
       const result = await SysUser.find(username);
       if (result.code == 200 && Object.keys(result.data).length > 0) {
         let user = result.data;
@@ -27,7 +29,7 @@ let SysUserController = {
           const { id, status } = user;
           // 设置token
           const token = setToken(
-            { uid: id, username },
+            { uid: id, username,f, i },
             config.JWT_SECRET,
             config.JWT_EXPIRES_IN
           );
@@ -40,7 +42,8 @@ let SysUserController = {
           res.json({ ...fail, msg: "用户名或密码错误！" });
         }
       } else {
-        res.json(result);
+        console.log('result--->',result)
+        res.json({ ...fail, msg: "用户名或密码错误！" });
       }
     } catch (err) {
       res.json({ ...fail, msg: "用户名或密码错误！" });
@@ -75,7 +78,7 @@ let SysUserController = {
     try {
       let { id } = req.query;
       if (!id) {
-        const token = req.cookies.token || req.headers.token;
+        const token = req.headers.token;
         if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
