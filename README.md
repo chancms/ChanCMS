@@ -147,6 +147,7 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 ## ❤️项目关注
 
 * **码云：<https://gitee.com/chancms/ChanCMS>**
+* **github:<https://github.com/chancms/ChanCMS>** 仅仅做备份更新较慢
 
 ## 👴项目交流
 
