@@ -1,12 +1,13 @@
 {
   "name": "chancms",
   "type": "module",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "description": "ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型CMS系统。",
   "main": "app.js",
   "scripts": {
     "dev": "node --env-file=.env.dev --watch app.js",
-    "prd": "pm2 start pm2.json"
+    "prd": "pm2 start pm2.json",
+    "check": "npm audit"
   },
   "keywords": [
     "\"cms\""
@@ -16,7 +17,7 @@
   "dependencies": {
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
-    "chanjs": "^2.0.12",
+    "chanjs": "^2.0.14",
     "cheerio": "^1.1.2",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",

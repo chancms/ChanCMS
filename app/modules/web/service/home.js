@@ -181,7 +181,7 @@ const home = {
 
   async tag({ path, current = 1 }) {
     try {
-      const config = Chan.config.data.tag;
+      const config = Chan.config.data.tags;
       const apiCalls = getApiCalls(
         config,
         {

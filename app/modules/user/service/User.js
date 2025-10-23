@@ -45,6 +45,7 @@ let UserService = {
       query: { id },
       field: [
         "id", 
+        "nickname",
         "username",
         "sex",
         "email",

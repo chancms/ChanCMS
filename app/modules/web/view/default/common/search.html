@@ -50,8 +50,9 @@
 
 <script>
   window.onload = function () {
+   
     // 检查是否存在用户信息
-    const userInfo = getCookie("un");
+    const userInfo = window?.getCookie("un") || "";
     if (userInfo) {
       // 存在用户信息，更新登录状态
       document.getElementById("login").style.display = "none";

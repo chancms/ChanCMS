@@ -1,10 +1,11 @@
-import BaseService from './base.js';
+import { p } from "../../../../public/admin/assets/js/@vue";
+
 const { knex } = Chan;
-let model = "cms_articletag";
-let db = Chan.Service(knex, model);
+const model = "cms_articletag";  // 改为const
+const db = Chan.Service(knex, model);  // 改为const
 const pageSize = 100;
 
-let ArticleTagService = {
+const ArticleTagService = {
   // 新增
   async create(body) {
     try {
@@ -29,10 +30,9 @@ let ArticleTagService = {
 
   // 修改
   async update(body) {
-    const { id } = body;
-    delete body.id;
+    const { id ,...params } = body;
     try {
-      const result = await knex(model).where("id", "=", id).update(body);
+      const result = await knex(model).where("id", "=", id).update(params);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);
@@ -43,16 +43,19 @@ let ArticleTagService = {
   // 文章列表
   async list(cur = 1, pageSize = 10) {
     try {
+      // 修正this.model为model，参数转为数字
+      cur = Number(cur) || 1;
+      pageSize = Number(pageSize) || 10;
       // 查询个数
       const total = await knex(model).count("id", { as: "count" });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
         .select("*")
-        .from(this.model)
+        .from(model)  // 修复点：使用model变量
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
-      const count = total[0].count || 1;
+      const count = Number(total[0].count) || 0;  // 修复点：默认0且转为数字
       return {
         count: count,
         total: Math.ceil(count / pageSize),
@@ -79,13 +82,15 @@ let ArticleTagService = {
   // 搜索
   async search(key = "", cur = 1, pageSize = 10) {
     try {
+      // 参数转为数字
+      cur = Number(cur) || 1;
+      pageSize = Number(pageSize) || 10;
       // 查询个数
       const total = key
         ? await knex(model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .count("id", { as: "count" })
         : await knex(model).count("id", { as: "count" });
-      // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
       const list = key
         ? await knex
@@ -101,7 +106,7 @@ let ArticleTagService = {
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc");
-      const count = total[0].count || 1;
+      const count = Number(total[0].count) || 0;  // 修复点：默认0且转为数字
       return {
         count: count,
         total: Math.ceil(count / pageSize),
@@ -113,6 +118,6 @@ let ArticleTagService = {
       throw err;
     }
   }
-}
+};
 
 export default ArticleTagService;

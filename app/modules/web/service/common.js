@@ -523,62 +523,60 @@ const common = {
    */
   // 异步函数，用于查询标签
   async tags({ path, current = 1, pageSize = 10 }) {
-    try {
-      // 计算起始位置
-      const start = (current - 1) * pageSize;
-      // 查询个数
-      const total = await knex("cms_article as a")
-        .whereExists(function () {
-          select(1)
-            .from("cms_tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tagId)")
-            .andWhere("t.path", path);
-        })
-        .count("a.id as total");
+  try {
+    const start = (current - 1) * pageSize;
 
-      // 查询文章列表
-      const result = await knex("cms_article as a")
-        .select(
-          "a.id",
-          "a.title",
-          "a.shortTitle",
-          "a.img",
-          "a.description",
-          "a.createdAt",
-          "a.author",
-          "a.pv",
-          "c.pinyin",
-          "c.name",
-          "c.path"
-        )
-        .join("cms_category as c", "a.cid", "c.id")
-        .whereExists(function () {
-          select(1)
-            .from("cms_tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
-            .andWhere("t.path", path);
-        })
-        .where("a.status", 0)
-        .orderBy("a.createdAt", "DESC")
-        .offset(start)
-        .limit(pageSize);
+    // 查询总数
+    const totalResult = await knex('cms_article as a')
+      .whereExists((qb) => {
+        qb.select(knex.raw('1'))
+          .from('cms_tag as t')
+          .whereRaw('FIND_IN_SET(t.id, a.tagId) > 0') // 注意加上 > 0 判断
+          .where('t.path', path);
+      })
+      .andWhere('a.status', 0)
+      .count('a.id as total');
 
-      const count = total[0].total || 1;
+    const count = parseInt(totalResult[0].total, 10);
 
-      return {
-        count,
-        total: Math.ceil(count / pageSize),
-        current,
-        list: result,
-      };
-    } catch (err) {
-      console.error(
-        `id->${path} current->${current} pageSize->${pageSize}`,
-        err
-      );
-      throw err;
-    }
-  },
+    // 查询分页数据
+    const result = await knex('cms_article as a')
+      .select(
+        'a.id',
+        'a.title',
+        'a.shortTitle',
+        'a.img',
+        'a.description',
+        'a.createdAt',
+        'a.author',
+        'a.pv',
+        'c.pinyin',
+        'c.name',
+        'c.path'
+      )
+      .join('cms_category as c', 'a.cid', 'c.id')
+      .whereExists((qb) => {
+        qb.select(knex.raw('1'))
+          .from('cms_tag as t')
+          .whereRaw('FIND_IN_SET(t.id, a.tagId) > 0')
+          .where('t.path', path);
+      })
+      .andWhere('a.status', 0)
+      .orderBy('a.createdAt', 'desc')
+      .offset(start)
+      .limit(pageSize);
+
+    return {
+      count,
+      total: Math.ceil(count / pageSize),
+      current,
+      list: result,
+    };
+  } catch (err) {
+    console.error(`path->${path}, current->${current}, pageSize->${pageSize}`, err);
+    throw err;
+  }
+},
 
   /**
    * @description 通过文章id获取tags

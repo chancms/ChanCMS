@@ -67,8 +67,8 @@ let ModelService = {
           .transacting(trx);
         // 删除模型对应的表
         const delTable = await knex
-          .raw(`drop table ${tableName}`)
-          .transacting(trx);
+        .raw(`drop table ??`, [tableName])  // 使用??作为表名占位符，参数单独传递
+        .transacting(trx);
         return {
           delModel: result === 1,
           delField: delField === 1,
@@ -88,8 +88,8 @@ let ModelService = {
 
       await knex.transaction(async (trx) => {
         const renameTable = await knex
-          .raw(`alter table ${old_tableName} rename to ${tableName}`)
-          .transacting(trx);
+      .raw(`alter table ?? rename to ??`, [old_tableName, tableName])  // 使用??作为表名占位符
+      .transacting(trx);
 
         const result = await knex(model)
           .where("id", "=", id)

@@ -110,19 +110,22 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 ### 案例🍅️
 
 * [前行者 EWEADN](https://www.eweadn.cn)
-* [粤港澳大湾区教育创新协会](https://hk.bossyun.com/)
 * [北京辉达科技](http://www.huidaep.com/ )
 * [北京诺丰科技](http://www.novontrade.com/ )
 * [北京智慧城市供需对接平台](https://gongxudj.com/#/headerNav/newHome)
 * [上海昂翊信息](http://www.angyi-iot.com/)
 * [广东天波股份](https://sec.telpo.cn/)
 * [广东HANSA中国](http://www.hansa-asia.com/)
+* [萌狮换电](http://www.51mshd.com/)
+* [南京玄武中等专业学校](http://xxtyxy.aiwx.org.cn/)
 * [武汉微科智汇](http://www.whwkzh.cn/)
 * [浙江金卡实业](http://zjjksy.com/)
 * [浙江华宇科技](http://www.kinka.net.cn/)
 * [西安圣豆电子](https://www.sundaytek.com/)
 * [石家庄诺德房产](https://www.nuodefangchan.com/)
 * [山西蝌蚪云](https://kd-yun.top/)
+* [海南省海洋经济发展与资源保护研究院](https://hnimer.org.cn/)
+* [粤港澳大湾区教育创新协会](https://hk.bossyun.com/)
 * [香港日报](http://www.hongkongdaily.net/)
 * [国际健康健美长寿论坛](http://www.internationjms.cn/)
 * [世界大健康运动联盟](http://www.worldhealthgames.com/)
@@ -130,11 +133,10 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 * [香港大湾区](https://hk.bossyun.com/)
 * [七弈国象](https://doc.7yi.link/)
 * [有道IT官网](http://www.wmjtyd.net/)
-<!-- * [萌狮换电](http://www.51mshd.com/) -->
+
 <!-- * [历史人物网](https://ancestries.cn/) -->
 <!-- * [同宇宙官网](http://www.zdmedia.com.cn:81/) -->
 <!-- * 十 [超前端](https://zoye.top/) -->
-
 <!-- * 演示站1 [雅俗共赏](http://www.cqsmservices.cn/) -->
 
 ## 👵开发文档

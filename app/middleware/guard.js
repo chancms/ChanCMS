@@ -24,7 +24,7 @@ export const isValidTargetUrl =(urlString)=>{
     // 检查是否为私有地址（禁止访问）
     const privateIpRegex = /^(127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-2])\.)/;
     if (privateIpRegex.test(url.hostname)) {
-        console.log('禁止访问私有地址：', url.hostname);
+      console.log('禁止访问私有地址：', url.hostname);
       return false;
     }
 

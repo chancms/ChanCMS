@@ -35,6 +35,7 @@ export default () => {
       console.log("user-auth--cookies-->", _f, _i);
       
       if (_f !== fp || _i !== ip) {
+        console.log('_f->', _f, 'fp->', fp, '   _i->', _i, 'ip->', ip);
         return sendResponse(res, 202, "登录设备异常，请重新登录！");
       }
       

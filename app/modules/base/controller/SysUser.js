@@ -21,7 +21,7 @@ let SysUserController = {
       if (result.code == 200 && Object.keys(result.data).length > 0) {
         let user = result.data;
         if (!user.id) {
-          res.json({ ...fail, msg: "用户名或密码错误！" });
+          res.json({ ...fail, msg: "用户不存在" });
           return;
         }
         const match = await bcrypt.compare(password, user.password);
@@ -36,17 +36,15 @@ let SysUserController = {
           const data = { status, username, token };
           // 获取用户菜单
           const menus = await SysMenu.allRouter(id);
-
           res.json({ ...success, data: data, menus });
         } else {
-          res.json({ ...fail, msg: "用户名或密码错误！" });
+          res.json({ ...fail, msg: "密码错误！" });
         }
       } else {
-        console.log('result--->',result)
-        res.json({ ...fail, msg: "用户名或密码错误！" });
+        res.json({ ...fail, msg: "用户不存在" });
       }
     } catch (err) {
-      res.json({ ...fail, msg: "用户名或密码错误！" });
+      res.json({ ...fail, msg: "登录异常，请稍后重试" });
       console.error("SysUserController.login-->", err);
       next(err);
     }

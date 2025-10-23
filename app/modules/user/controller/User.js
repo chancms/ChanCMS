@@ -28,7 +28,7 @@ let UserController = {
       if (result.data.total === 1) {
         let user = result.data.list[0];
         if (!user.id) {
-          res.json({ ...fail, msg: "用户名或密码错误！" });
+          res.json({ ...fail, msg: "不存在此用户" });
           return;
         }
         const match = await bcrypt.compare(password, user.password);
@@ -42,13 +42,13 @@ let UserController = {
           );
           res.json({ ...success, data: { id, username, status, token } });
         } else {
-          res.json({ ...fail, msg: "用户名或密码错误！" });
+          res.json({ ...fail, msg: "密码错误！" });
         }
       } else {
-        res.json({ ...fail, msg: "用户名或密码错误！" });
+        res.json({ ...fail, msg: "用户不存在！" });
       }
     } catch (err) {
-      res.json({ ...fail, msg: "用户名或密码错误！" });
+      res.json({ ...fail, msg: "登录异常，请稍后重试" });
       console.error("SysUserController.login-->", err);
       next(err);
     }

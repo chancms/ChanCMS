@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 const {
   common: {
-    success
+    success,fail
   },
 } = Chan;
 import gather from "../service/gather.js";
@@ -13,10 +13,10 @@ let GatherController ={
       const { targetUrl, parseData } = req.query;
 
       if (!targetUrl) {
-        return res.status(400).json({ code: 400, msg: '缺少 targetUrl' });
+        return res.json({ ...fail, msg: '缺少 targetUrl' });
       }
       if (!parseData) {
-        return res.status(400).json({ code: 400, msg: '缺少 parseData 配置' });
+        return res.json({ ...fail, msg: '缺少 parseData 配置' });
       }
   
       // 1. 解析配置
@@ -24,7 +24,7 @@ let GatherController ={
       try {
         config = JSON.parse(decodeURIComponent(parseData));
       } catch (e) {
-        return res.status(400).json({ code: 400, msg: 'parseData 不是合法 JSON' });
+        return res.json({ ...fail, msg: 'parseData 不是合法 JSON' });
       }
   
       // 2. 请求接口
@@ -61,9 +61,12 @@ let GatherController ={
         if (value == null || value === undefined || value === '') {
           value = defaultValue;
         }
+
+       
   
         // 如果是数组，且需要转 HTML
         if (isArray && Array.isArray(value) && wrap) {
+          console.log(`字段 ${key} 的值为:`, value);
           value = value
             .map(item =>
               `<${wrap}>${String(item).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</${wrap}>`

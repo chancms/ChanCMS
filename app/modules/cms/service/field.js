@@ -62,7 +62,7 @@ let FieldService = {
         }
 
         const res = await knex
-          .raw(`alter table ${table} add ${ename} ${sql}`)
+         .raw(`alter table ?? add ?? ${sql}`, [table, ename])
           .transacting(trx);
         return res ? "success" : "fail";
       });
@@ -96,7 +96,7 @@ let FieldService = {
         // 删除对应模型表中的字段
         if (result > 0) {
           const res = await knex
-            .raw(`alter table ${table} drop column ${ename}`)
+          .raw(`alter table ?? drop column ??`, [table, ename])
             .transacting(trx);
         }
         return result ? "success" : "fail";
@@ -131,16 +131,17 @@ let FieldService = {
           if (!tableName) {
             throw new Error("找不到模型表格");
           }
-
+         // 修复点：对length进行数字验证，防止注入
+          const safeLength = Number.isInteger(length) && length > 0 ? length : 255;
           // 定义一个对象来存储不同类型的SQL字段定义
           const fieldTypeMap = {
-            1: `varchar(${length || 255}) `, // 如果没有提供长度，默认为255
+            1: `varchar(${safeLength || 255}) `, // 如果没有提供长度，默认为255
             2: "text",
             3: "text",
             4: "text",
             5: "text",
             6: `datetime NOT NULL DEFAULT NULL`,
-            7: `varchar(${length || 255}) `, // 如果没有提供长度，默认为255
+            7: `varchar(${safeLength || 255}) `, // 如果没有提供长度，默认为255
             8: "text",
             9: "longtext",
           };
@@ -148,14 +149,11 @@ let FieldService = {
           // 获取对应的SQL字段定义
           let sqlType = fieldTypeMap[body.type];
         
-          const sql = `ALTER TABLE ${tableName} CHANGE ${old_ename} ${body.ename} ${sqlType}`;
-          // 执行SQL语句
-          const alterResult = await knex.raw(sql).transacting(trx);
-
-          // 检查 alterResult 是否成功
-          if (!alterResult) {
-            throw new Error("Failed to modify field type");
-          }
+           // 使用 ?? 安全引用表名、旧字段名、新字段名
+           const sql = `ALTER TABLE ?? CHANGE ?? ?? ${sqlType}`;
+           await knex
+             .raw(sql, [tableName, old_ename, updateData.ename])
+             .transacting(trx);
         }
       });
 
@@ -183,10 +181,12 @@ let FieldService = {
 
   // 文章列表
   async list(mid, cur = 1, pageSize = 10) {
-    try {
+     try {
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${model}`;
-      const total = await knex.raw(sql);
+   
+      const total = await knex.raw("SELECT COUNT(id) as count FROM ??", [model]);
+	  
+	 
       // 列表
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex

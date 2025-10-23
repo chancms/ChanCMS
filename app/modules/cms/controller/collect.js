@@ -4,7 +4,7 @@ import {isValidTargetUrl} from "../../../middleware/guard.js";
 import {cleanHtml} from "../../../middleware/clearhtml.js";
 const {
   common: {
-    success ,
+    success ,fail
   },
 } = Chan;
 
@@ -46,8 +46,16 @@ let CollectController  = {
       // 3. 提取内容
       let $content = $(articleTag).clone();
       let html = $content.html();
+
+      console.log('parseData--->', html)
   
       // 4. 应用清洗
+      try {
+        const cleanOptions = JSON.parse(parseData) || {};
+      } catch (error) {
+        console.log('error--->', error)
+        return res.json({...fail,msg:'清理配置非标准JSON',data:error.toString()})
+      }
       const cleanOptions = JSON.parse(parseData) || {};
       html = cleanHtml(html, cleanOptions);
   

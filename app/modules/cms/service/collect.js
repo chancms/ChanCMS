@@ -1,156 +1,192 @@
-
-const { knex } = Chan;
-import axios from 'axios';
+const {
+  helper: { request },
+  knex,
+} = Chan;
 import iconv from 'iconv-lite';
-import BaseService from './base.js';
-
 let model = "plus_collect";
 let db = Chan.Service(knex, model);
 const pageSize = 100;
 
 let CollectService = {
-
+  /**
+   * 抓取网页内容（支持 GB2312 / Buffer）
+   */
   async common(url, charset) {
     try {
-      const { data } = await axios.get(url, {
-        responseType: "arraybuffer",
+      const data = await request(url, {
+        method: 'GET',
+        responseType: 'arraybuffer',
+        parseJson: false,
+        timeout: 15000,
         headers: {
-          "user-agent":
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36",
+          'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36',
           Referer: url,
-          "Accept-Language": "zh-CN,zh;q=0.9",
+          'Accept-Language': 'zh-CN,zh;q=0.9',
         },
       });
-      return charset == 1 ? data : iconv.decode(data, "gb2312");
+   
+      const buffer = Buffer.from(data);
+      return charset === '1' ? buffer : iconv.decode(buffer, 'gb2312');
     } catch (err) {
-      throw err;
+
+       console.error(`[CollectService] 抓取失败: ${url}`, err.message);
+      throw { code: 'FETCH_ERROR', message: err.message, url };
     }
   },
 
-  // 增加
+  /**
+   * 新增采集任务
+   */
   async create(body) {
     try {
       const result = await db.insert(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err);
-      throw err;
+      console.error(`[CollectService.create] 插入失败`, err);
+      throw { code: 'DB_INSERT_ERROR', message: err.message };
     }
   },
 
-  // 删
+  /**
+   * 删除采集任务
+   */
   async delete(id) {
     try {
-      const result = await knex(model).where("id", "=", id).del();
-      return result ? "success" : "fail";
+      const result = await knex(model).where("id", id).del();
+      return result > 0 ? "success" : "fail";
     } catch (err) {
-      console.error(err);
-      throw err;
+      console.error(`[CollectService.delete] 删除失败`, { id, error: err.message });
+      throw { code: 'DB_DELETE_ERROR', message: err.message };
     }
   },
 
-  // 修改
+  /**
+   * 更新采集任务
+   */
   async update(body) {
-    const { id } = body;
-    delete body.id;
+    const { id, ...params } = body;
+    if (!id) throw { code: 'VALIDATION_ERROR', message: '缺少 id 参数' };
+
     try {
-      const result = await knex(model).where("id", "=", id).update(body);
-      return result ? "success" : "fail";
+      const result = await knex(model).where("id", id).update(params);
+      return result > 0 ? "success" : "fail";
     } catch (err) {
-      console.error(err);
-      throw err;
+      console.error(`[CollectService.update] 更新失败`, { id, params, error: err.message });
+      throw { code: 'DB_UPDATE_ERROR', message: err.message };
     }
   },
 
-  // 列表
+  /**
+   * 分页查询采集任务列表
+   */
   async list(cur = 1, pageSize = 10) {
+    const page = Math.max(1, parseInt(cur));
+    const limit = Math.min(pageSize, 100); // 防止过大 pageSize
+    const offset = (page - 1) * limit;
+
     try {
-      // 查询个数
-      const total = await knex(model).count("id", { as: "count" });
-      const offset = parseInt((cur - 1) * pageSize);
+      const [{ count }] = await knex(model).count('id as count');
       const list = await knex(model)
         .select(
-          "plus_collect.id",
-          "plus_collect.taskName",
-          "plus_collect.pages",
-          "plus_collect.updatedAt",
-          "plus_collect.charset",
-          "plus_collect.titleTag",
-          "plus_collect.articleTag",
-          "plus_collect.parseData",
-          "plus_collect.status",
-          "plus_collect.cid",
-          "cms_category.name as category"
+          'plus_collect.id',
+          'plus_collect.taskName',
+          'plus_collect.pages',
+          'plus_collect.updatedAt',
+          'plus_collect.charset',
+          'plus_collect.titleTag',
+          'plus_collect.articleTag',
+          'plus_collect.parseData',
+          'plus_collect.status',
+          'plus_collect.cid',
+          'cms_category.name as category'
         )
-        .innerJoin("cms_category", "plus_collect.cid", "cms_category.id")
-        .limit(pageSize)
+        .innerJoin('cms_category', 'plus_collect.cid', 'cms_category.id')
+        .limit(limit)
         .offset(offset)
-        .orderBy("plus_collect.id", "desc");
-      const count = total[0].count || 1;
+        .orderBy('plus_collect.id', 'desc');
+
+      const total = Math.ceil(count / limit);
+
       return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current: +cur,
-        list: list,
+        count,
+        total,
+        current: page,
+        list,
       };
     } catch (err) {
-      console.error(err);
-      throw err;
+      console.error(`[CollectService.list] 查询失败`, err);
+      throw { code: 'DB_QUERY_ERROR', message: err.message };
     }
   },
 
-  // 查
+  /**
+   * 查询单个任务详情
+   */
   async detail(id) {
     try {
       const data = await knex(model)
-        .where("id", "=", id)
+        .where('id', id)
         .select([
-          "id",
-          "taskName",
-          "targetUrl",
-          "listTag",
-          "startNum",
-          "endNum",
-          "increment",
-          "pages",
-          "titleTag",
-          "articleTag",
-          "charset",
-          "parseData",
-          "status",
-          "cid",
-        ]);
-      return data[0];
+          'id',
+          'taskName',
+          'targetUrl',
+          'listTag',
+          'startNum',
+          'endNum',
+          'increment',
+          'pages',
+          'titleTag',
+          'articleTag',
+          'charset',
+          'parseData',
+          'status',
+          'cid',
+        ])
+        .first();
+
+      return data || null;
     } catch (err) {
-      throw err;
+      console.error(`[CollectService.detail] 查询详情失败`, { id, error: err.message });
+      throw { code: 'DB_DETAIL_ERROR', message: err.message };
     }
   },
 
-  // 搜索
+  /**
+   * 搜索采集任务（修复 SQL 注入）
+   */
   async search(key = "", cur = 1, pageSize = 10) {
+    const page = Math.max(1, parseInt(cur));
+    const limit = Math.min(pageSize, 100);
+    const offset = (page - 1) * limit;
+
     try {
-      // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ?? p WHERE p.taskName LIKE '%${key}%'`;
-      const total = await knex.raw(sql, [model]);
-      // 翻页
-      const offset = parseInt((cur - 1) * pageSize);
-      const sql_list = `SELECT p.id,p.taskName,p.targetUrl,p.updatedAt,p.charset,p.status FROM ?? p WHERE p.taskName LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
-      const list = await knex.raw(sql_list, [
-        model,
-        offset,
-        parseInt(pageSize),
-      ]);
-      const count = total[0].count || 1;
+      // 转义 LIKE 特殊字符：% _ \
+      const safeKey = key.replace(/[%_\\]/g, match => `\\${match}`);
+      const likePattern = `%${safeKey}%`;
+
+      const [{ count }] = await knex(model)
+        .count('id as count')
+        .where('taskName', 'like', likePattern);
+
+      const list = await knex(model)
+        .select('id', 'taskName', 'targetUrl', 'updatedAt', 'charset', 'status')
+        .where('taskName', 'like', likePattern)
+        .orderBy('id', 'desc')
+        .limit(limit)
+        .offset(offset);
+
       return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current: +cur,
-        list: list[0],
+        count: count || 0,
+        total: Math.ceil((count || 0) / limit),
+        current: page,
+        list,
       };
     } catch (err) {
-      throw err;
+      console.error(`[CollectService.search] 搜索失败`, { key, error: err.message });
+      throw { code: 'DB_SEARCH_ERROR', message: err.message };
     }
-  }
-}
+  },
+};
 
 export default CollectService;

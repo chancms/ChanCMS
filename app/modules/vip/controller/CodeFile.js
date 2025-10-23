@@ -31,6 +31,9 @@ let CodeFileController = {
     try {
       let fullPath = ''
       let paths = req.query.path;
+       if (!isPathSafe(paths,APP_PATH)  && !isPathSafe(paths,ROOT_PATH)) {
+        return res.status(403).json({ error: "访问路径不安全" });
+      }
       if (paths) {
         fullPath =  path.join(ROOT_PATH, paths);
       }else{

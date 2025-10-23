@@ -1,3 +1,1 @@
-export let views = [
-   
-];
+export let views = [];

@@ -1,4 +1,7 @@
-const { knex } = Chan;
+const {
+  helper: { request },
+  knex,
+} = Chan;
 import BaseService from './base.js';
 import {isValidTargetUrl} from '../../../middleware/guard.js';
 
@@ -15,13 +18,10 @@ let GatherService  = {
        if (!isValidTargetUrl(url)) {
         return "不允许访问的目标地址";
       }
-      if (global.fetch) {
-        const result = await fetch(url);
-        const data = await result.json();
-        return data;
-      }
-      return "当前node版本不支持fetch";
+      const data = await request(url);
+      return data;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   },

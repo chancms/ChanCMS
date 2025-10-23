@@ -1,7 +1,6 @@
 
 const { loadController } = Chan.helper;
 let controller = await loadController("proxy");
-console.log('proxy-->',controller.Client.ip);
 
 export default (app, router, config) => {
 

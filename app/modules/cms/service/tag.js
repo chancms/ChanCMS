@@ -26,7 +26,8 @@ let TagService = {
   async delete(id) {
     try {
       const has = await knex.raw(
-        `SELECT tid FROM cms_articletag WHERE tid = ${id}`
+        `SELECT tid FROM cms_articletag WHERE tid = ?`,  // 使用?作为参数占位符
+        [id]  // 参数单独传递
       );
       if (has[0].length > 0) {
         return false;

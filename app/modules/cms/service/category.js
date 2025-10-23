@@ -1,5 +1,8 @@
-const { knex } = Chan;
-import BaseService from "./base.js";
+const {
+  helper: { request },
+  knex,
+} = Chan;
+
 
 let model = "cms_category";
 let db = Chan.Service(knex, model);
@@ -34,10 +37,9 @@ let CategoryService  = {
 
   // 改
   async update(body) {
-    const { id } = body;
-    delete body.id;
+    const { id,...params } = body;
     try {
-      const result = await knex(model).where("id", "=", id).update(body);
+      const result = await knex(model).where("id", "=", id).update(params);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);

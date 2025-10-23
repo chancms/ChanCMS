@@ -5,5 +5,6 @@ export const modules = [
     "vip",
     "web",
     "user",
-    "proxy"
+    "proxy",
+    "wechat"
   ]
