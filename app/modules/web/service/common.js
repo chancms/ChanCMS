@@ -682,38 +682,48 @@ const common = {
   },
 
   async article(id) {
-    try {
-      // 查询文章
-      const data = await knex("cms_article").where("id", "=", id).select();
-      //兼容mysql错误
-      if (!data[0] || !data[0].cid) {
-        return false;
-      }
-      // 通过栏目id查找模型id
-      const modId = await knex.raw(
-        `SELECT mid FROM cms_category WHERE id=? LIMIT 0,1`,
-        [data[0].cid]
-      );
-
-      let field = [];
-      if (modId[0].length > 0 && modId[0][0].mid !== "0") {
-        // 通过模型查找表名
-        const tableName = await knex.raw(
-          `SELECT tableName FROM cms_model WHERE id=?`,
-          [modId[0][0].mid]
-        );
-        // 通过表名查找文章
-        field = await knex.raw(`SELECT * FROM ?? WHERE aid=? LIMIT 0,1`, [
-          tableName[0][0].tableName,
-          id,
-        ]);
-      }
-      return { ...data[0], field: field[0] || {} };
-    } catch (err) {
-      console.error(err);
-      throw err;
+  try {
+    const data = await knex("cms_article").where("id", "=", id).first();
+    if (!data || !data.cid) {
+      return false;
     }
-  },
+
+    const modIdResult = await knex("cms_category")
+      .select("mid")
+      .where("id", data.cid)
+      .first();
+
+    if (!modIdResult || modIdResult.mid === "0") {
+      return { ...data, field: {} };
+    }
+
+    const tableResult = await knex("cms_model")
+      .select("tableName")
+      .where("id", modIdResult.mid)
+      .first();
+
+    if (!tableResult) {
+      return { ...data, field: {} };
+    }
+
+    const tableNameStr = tableResult.tableName;
+    // 严格校验表名
+    if (!/^[a-zA-Z0-9_]+$/.test(tableNameStr)) {
+      throw new Error("Invalid table name");
+    }
+
+    const fieldResult = await knex
+      .select("*")
+      .from(tableNameStr)
+      .where("aid", id)
+      .first();
+
+    return { ...data, field: fieldResult || {} };
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+},
 
   // 上一篇文章
   async prev({ id, cid }) {
@@ -763,46 +773,59 @@ const common = {
   },
 
   async search({ keywords = "", current = 1, pageSize = 10, cid = 0 }) {
-    try {
-      // 查询个数
-      let sql;
-      const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;
-      const keyStr = ` WHERE a.title LIKE \'%${keywords}%\'`;
-      const cidStr = `  AND c.id=?`;
+  try {
+    const offset = (current - 1) * pageSize;
 
-      if (cid === 0) {
-        sql = countSql + keyStr;
-      } else {
-        sql = countSql + keyStr + cidStr;
-      }
-      const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
-      // 翻页
-      const offset = parseInt((current - 1) * pageSize);
-      let sql_list = "";
-      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${keywords}%\' `;
-      const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
-        pageSize
-      )}`;
-      if (cid === 0) {
-        sql_list = listStart + listEnd;
-      } else {
-        sql_list = listStart + `AND c.id=? ` + listEnd;
-      }
-      const list = cid
-        ? await knex.raw(sql_list, [cid])
-        : await knex.raw(sql_list, []);
-      const count = total[0][0].count;
-      return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current,
-        list: list[0],
-      };
-    } catch (err) {
-      console.error(err);
-      throw err;
+    let queryBuilder = knex('cms_article as a')
+      .leftJoin('cms_category as c', 'a.cid', 'c.id')
+      .select(
+        'a.id',
+        'a.title',
+        'a.attr',
+        'a.tagId',
+        'a.description',
+        'a.cid',
+        'a.pv',
+        'a.createdAt',
+        'a.status',
+        'c.name',
+        'c.path'
+      )
+      .where('a.status', 0);
+
+    if (keywords.trim()) {
+      queryBuilder.where('a.title', 'like', `%${keywords.trim()}%`);
     }
-  },
+
+    if (cid !== 0) {
+      queryBuilder.where('c.id', cid);
+    }
+
+    // 获取总数
+    const totalResult = await knex
+      .count('* as count')
+      .from(queryBuilder.as('temp_query'))
+      .first();
+    const count = parseInt(totalResult.count, 10);
+
+    // 获取分页数据
+    const list = await queryBuilder
+      .clone()
+      .orderBy('a.id', 'desc')
+      .offset(offset)
+      .limit(pageSize);
+
+    return {
+      count,
+      total: Math.ceil(count / pageSize),
+      current: +current,
+      list,
+    };
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+},
 
   /**
    * 查找所有符合条件的记录，并提供分页信息。
