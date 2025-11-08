@@ -120,28 +120,35 @@ let GatherService  = {
 
   // 搜索
   async search(key = "", cur = 1, pageSize = 10) {
-    try {
-      // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ? p  WHERE p.name LIKE '%${key}%'`;
-      const total = await knex.raw(sql, [model]);
-      // 翻页
-      const offset = parseInt((cur - 1) * pageSize);
-      const sql_list = `SELECT p.id,p.taskName,p.targetUrl,p.updatedAt,p.status FROM ? p WHERE p.taskName LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
-      const list = await knex.raw(sql_list, [
-        model,
-        offset,
-        parseInt(pageSize),
-      ]);
-      const count = total[0].count || 1;
-      return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current: +cur,
-        list: list[0],
-      };
-    } catch (err) {
-      throw err;
-    }
+    const page = Math.max(1, parseInt(cur) || 1);
+    const limit = Math.min(parseInt(pageSize) || 10, 100);
+    const offset = (page - 1) * limit;
+  
+    // 模糊搜索模式：用户输入的 % 和 _ 作为通配符
+    const likePattern = `%${key}%`;
+  
+    // 获取总数
+    const result = await knex(model)
+      .count('* as count')
+      .where('taskName', 'like', likePattern)
+      .first();
+  
+    const count = parseInt(result?.count || 0, 10);
+  
+    // 查询列表
+    const list = await knex(model)
+      .select('id', 'taskName', 'targetUrl', 'updatedAt', 'status')
+      .where('taskName', 'like', likePattern)
+      .orderBy('id', 'desc')
+      .limit(limit)
+      .offset(offset);
+  
+    return {
+      count,
+      total: Math.ceil(count / limit),
+      current: page,
+      list,
+    };
   }
 }
 

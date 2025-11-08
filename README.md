@@ -142,14 +142,15 @@ ChanCMS是一款基于Node、Express5、MySQL、Vue3研发的高质量实用型C
 ## 👵开发文档
 
 * **官网:<https://www.chancms.top>**
-* **官网文档 <https://www.chancms.top/docs/index.html>**
+* **官网文档 ：<https://www.chancms.top/docs/index.html>**
+* **官网演示站：<https://vip.chancms.top>**
 * **视频教程：<https://space.bilibili.com/1885628820>**
-* **官网演示站<https://vip.chanyue.top>**
+
 
 ## ❤️项目关注
 
 * **码云：<https://gitee.com/chancms/ChanCMS>** 实时更新
-* **github:<https://github.com/chancms/ChanCMS>** 备份更新
+* **github:<https://github.com/chancms/ChanCMS>** 备份更新（啥时候连不上就不传了）
 
 ## 👴项目交流
 

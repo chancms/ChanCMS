@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 23/10/2025 21:43:51
+ Date: 02/11/2025 19:05:15
 */
 
 SET NAMES utf8mb4;
@@ -60,9 +60,9 @@ INSERT INTO `cms_article` VALUES (13, 5, '', 'ChanCMS v3.0.6下载', '', '2', ''
 INSERT INTO `cms_article` VALUES (14, 2, '', 'ChanCMS', '', '2', '', 'article-pdf.html', '', '', '', '', '<p>/public/doc/1.pdf</p>', 0, 37, '', '2024-11-09 18:40:34', '2025-09-16 09:45:06');
 INSERT INTO `cms_article` VALUES (15, 9, '', 'ChanCMS于作者', '', '2', '', '', '', '', '关于作者测试单页', '', '<p>关于作者测试单页</p>', 0, 82, '', '2024-12-05 23:26:59', '2025-09-23 10:02:23');
 INSERT INTO `cms_article` VALUES (18, 8, '', 'ChanCMS早间新闻—2024-12-08', '', '2', '', '', '', '', '123', '', '<p>123</p>', 0, 10, '', '2024-12-09 23:16:07', '2025-08-18 11:31:40');
-INSERT INTO `cms_article` VALUES (21, 8, '', 'ChanCMS一条鱼如何“接二连三”', '', '2', '', NULL, '', '', '  凌晨2点刚过，王金友就赶到自家鱼塘忙着捕鱼出货了。', '', '  <p>凌晨2点刚过，王金友就赶到自家鱼塘忙着捕鱼出货了。</p> <p>两个小时左右，3万来斤黄金鲫就经由水路运抵兴化市沙沟镇上的鱼行，近18万元卖鱼款很快到账。随着早市开场，从各个塘口汇聚而来的鲜鱼将发往农副市场、食品企业、景区饭店等处。</p> <p>兴化水网纵横，渔业发达，是江苏著名的“鱼米之乡”。当地的“一条鱼”，不仅富了养殖业，兴了加工业，也带动了旅游业发展，成了江苏农特产“接二连三”融合发展的缩影。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282105015SPVOL0QXRZ.jpg\" width=\"600\" height=\"338\" alt=\"王金友家的鱼塘配备了自动投饵机。人民网 范尧摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">王金友家的鱼塘配备了自动投饵机。人民网 范尧摄</span></p> <p><strong>一条鱼，养在水中富民增收</strong></p> <p>“如果不是今天捕鱼，现在投饵根本不出家门，直接手机操作，还可以看到鱼塘的实时画面。”王金友说。</p> <p>作为有着30多年经验的养鱼户，以前最让王金友头疼的就是喂鱼。一袋袋菜籽饼搬到船上，用铁锹拌匀，一锹锹撒到水塘，每天成百上千斤的鱼食，“哪怕是冬季，一到喂鱼时那汗出的，衣服就没有干过。”</p> <p>如今，鱼塘全部装上了自动投饵机，定时定量投喂，王金友感慨：“现在承包400亩鱼塘，一年能卖600多万元，从来没觉得养鱼像这样轻松。”</p> <p>作为主打农产品，兴化市淡水鱼养殖规模常年维持在16万亩。当地以淡水鱼、大闸蟹为主的水产品年产量超30万吨，连续34年位居江苏省内陆渔业县级之首，渔业经济年产值达260多亿元。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282118793UALTZ2ZRGW.jpg\" width=\"600\" height=\"450\" alt=\"当地企业展柜里摆放着部分以鱼为原料开发的食品。人民网 王丹丹摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">当地企业展柜里摆放着部分以鱼为原料开发的食品。人民网 王丹丹摄</span></p> <p><strong>一条鱼，生产线上吃干榨净</strong></p> <p>早上7点，5辆厢式货车陆续驶入兴化经济开发区的大泽水产制品有限公司。这趟运来的5万多斤鲢鱼，是渔业经纪人姜绍喜一早从兴化各塘口收来的。</p> <p>活鱼经传送带进入车间，生产线启动作业，80多位工人依次进行分级、打鳞、切断等初处理。</p> <p>一条鲢鱼切为鱼头和鱼身，分别在剁椒鱼头和鱼块生产线上速冻锁鲜，抽真空后再组合料包，做成不同种类的包装食品。此外，鱼骨等经过熟化、粉碎、烘干被加工成宠物饲料。</p> <p>“仅‘边角料’利用，每年就为企业增收近百万元。”该公司总经理张永山介绍，这种对一条鱼“吃干榨净”式的综合利用，既提高了经济效益，也实现了对生鱼废料的清洁化处理。“我们每天要用掉10万斤左右鲢鱼，把兴化本地的鲢鱼都买完，也只能满足需求量的1/3。”他说。</p> <p>在兴化，以鱼为原料的包装食品，除了剁椒鱼头，还有烤鱼、酸菜鱼等。与此同时，健康食品产业也已成为当地三大主导产业之一，规上企业年度开票收入突破110亿元。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282131269FYZXGVZQYM.jpg\" width=\"600\" height=\"337\" alt=\"沙沟镇河网纵横，尽显水乡风貌。人民网 范尧摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">沙沟镇河网纵横，尽显水乡风貌。人民网 范尧摄</span></p> <p><strong>一条鱼，以农兴旅的美食担当</strong></p> <p>72岁的江荣根在外工作了大半辈子，退休后以“游客”身份回到家乡兴化。促使他回乡“旅居”的，是一碗念念不忘的鱼汤面。</p> <p>“原本只想在亲戚家住两天就回上海，结果却在老家住了下来。”江荣根入住的民宿“枇杷苑”，老板王秀荣做得一手家乡菜，而最能打动江荣根的，还是那碗鱼汤面。</p> <p>鱼汤是将鳝鱼剔肉留骨，加入小鲫鱼、大猪骨煸炒，用文火慢炖到浓白，最后再把下好的面条放到汤头里。这一碗汤鲜味美的鱼汤面让江荣根穿过数十年岁月，吃到了“小时候的味道”。</p> <p>每年住在兴化的时间里，江荣根都会邀请他在上海的“退休团”朋友同来，春看垛田油菜，夏赏万亩荷塘，秋游水上森林，冬观候鸟翔集。沙沟古镇景区内的金沙沟水席馆，一道兴化鱼圆颇受大家的好评。“不少客人都说，就为这口鱼圆来的兴化，吃完还要打包几份带走。高峰期我们一天能卖掉大几百斤。”在金沙沟水席馆总经理张庄巧眼里，鱼汤面也好，鱼圆也罢，都是本乡人的家常饭菜，也是城里人舌尖上的乡愁记忆。</p> <p>以农兴旅，以旅促农，美食总是屡试不爽的关键。仅金沙沟水席馆这一家，一年上百万元的营业额中，淡水鱼有关的菜品销售占近七成。而像这样的餐馆，兴化境内的景区里比比皆是。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL17242819971464D92R8R6C7.jpg\" width=\"600\" height=\"567\" alt=\"每年6月的万人龙虾宴，是盱眙龙虾爆火的标志。许昌银摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">每年6月的万人龙虾宴，是盱眙龙虾爆火的标志。许昌银摄</span></p> <p><strong>“接二连三”的，不止一条鱼</strong></p> <p>产业振兴是乡村振兴的重中之重。事实上，像“兴化的一条鱼”这样“接二连三”的故事，江苏还有很多。</p> <p>淮安市盱眙县有“中国龙虾之都”的美称，该县小龙虾养殖面积97万亩，从养殖、加工到餐饮，从事龙虾相关产业的人口超过20万，形成了一个年产值超300亿元的富民产业。去年投产的龙虾超级工厂，更让盱眙龙虾成为只需24小时就能从当地虾田送到全国消费者手中的即食美味。</p> <p>在无锡市惠山区阳山镇，3.5万亩桃林，5000多户桃农，成就了当地人的一项甜蜜产业。当地不光卖桃，还卖起了风景，全年200多万的游客带来农旅两旺，阳山农民人均可支配收入高达6.6万元。</p> <p>近些年，江苏持续倡导推动农村一二三产业融合发展。人民网从江苏省农业农村厅了解到，截至目前，江苏以“一村一品、一镇一特、一县一业”为抓手，已打造10亿元以上县域优势特色产业近200个，培育国家农业产业强镇60多个、全国“一村一品”示范村镇200多个。</p> <p>“一二三产业融合发展可以将资源优势转变为产品优势，产品优势转化为产业优势，产业优势转化为市场优势，是乡村产业振兴的进阶方向。其关键在于找准特色资源和优势产业，注重发挥龙头企业的带动作用，并持续优化产业链合作机制，切实带动农民增收。”江苏省农科院农产品加工研究所首席研究员李春阳说。</p><center></center> ', 0, 5, '', '2024-12-09 23:17:35', '2025-09-16 09:45:01');
+INSERT INTO `cms_article` VALUES (21, 8, '', 'ChanCMS一条鱼如何“接二连三”', '', '2', '', NULL, '', '', '  凌晨2点刚过，王金友就赶到自家鱼塘忙着捕鱼出货了。', '', '  <p>凌晨2点刚过，王金友就赶到自家鱼塘忙着捕鱼出货了。</p> <p>两个小时左右，3万来斤黄金鲫就经由水路运抵兴化市沙沟镇上的鱼行，近18万元卖鱼款很快到账。随着早市开场，从各个塘口汇聚而来的鲜鱼将发往农副市场、食品企业、景区饭店等处。</p> <p>兴化水网纵横，渔业发达，是江苏著名的“鱼米之乡”。当地的“一条鱼”，不仅富了养殖业，兴了加工业，也带动了旅游业发展，成了江苏农特产“接二连三”融合发展的缩影。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282105015SPVOL0QXRZ.jpg\" width=\"600\" height=\"338\" alt=\"王金友家的鱼塘配备了自动投饵机。人民网 范尧摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">王金友家的鱼塘配备了自动投饵机。人民网 范尧摄</span></p> <p><strong>一条鱼，养在水中富民增收</strong></p> <p>“如果不是今天捕鱼，现在投饵根本不出家门，直接手机操作，还可以看到鱼塘的实时画面。”王金友说。</p> <p>作为有着30多年经验的养鱼户，以前最让王金友头疼的就是喂鱼。一袋袋菜籽饼搬到船上，用铁锹拌匀，一锹锹撒到水塘，每天成百上千斤的鱼食，“哪怕是冬季，一到喂鱼时那汗出的，衣服就没有干过。”</p> <p>如今，鱼塘全部装上了自动投饵机，定时定量投喂，王金友感慨：“现在承包400亩鱼塘，一年能卖600多万元，从来没觉得养鱼像这样轻松。”</p> <p>作为主打农产品，兴化市淡水鱼养殖规模常年维持在16万亩。当地以淡水鱼、大闸蟹为主的水产品年产量超30万吨，连续34年位居江苏省内陆渔业县级之首，渔业经济年产值达260多亿元。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282118793UALTZ2ZRGW.jpg\" width=\"600\" height=\"450\" alt=\"当地企业展柜里摆放着部分以鱼为原料开发的食品。人民网 王丹丹摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">当地企业展柜里摆放着部分以鱼为原料开发的食品。人民网 王丹丹摄</span></p> <p><strong>一条鱼，生产线上吃干榨净</strong></p> <p>早上7点，5辆厢式货车陆续驶入兴化经济开发区的大泽水产制品有限公司。这趟运来的5万多斤鲢鱼，是渔业经纪人姜绍喜一早从兴化各塘口收来的。</p> <p>活鱼经传送带进入车间，生产线启动作业，80多位工人依次进行分级、打鳞、切断等初处理。</p> <p>一条鲢鱼切为鱼头和鱼身，分别在剁椒鱼头和鱼块生产线上速冻锁鲜，抽真空后再组合料包，做成不同种类的包装食品。此外，鱼骨等经过熟化、粉碎、烘干被加工成宠物饲料。</p> <p>“仅‘边角料’利用，每年就为企业增收近百万元。”该公司总经理张永山介绍，这种对一条鱼“吃干榨净”式的综合利用，既提高了经济效益，也实现了对生鱼废料的清洁化处理。“我们每天要用掉10万斤左右鲢鱼，把兴化本地的鲢鱼都买完，也只能满足需求量的1/3。”他说。</p> <p>在兴化，以鱼为原料的包装食品，除了剁椒鱼头，还有烤鱼、酸菜鱼等。与此同时，健康食品产业也已成为当地三大主导产业之一，规上企业年度开票收入突破110亿元。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL1724282131269FYZXGVZQYM.jpg\" width=\"600\" height=\"337\" alt=\"沙沟镇河网纵横，尽显水乡风貌。人民网 范尧摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">沙沟镇河网纵横，尽显水乡风貌。人民网 范尧摄</span></p> <p><strong>一条鱼，以农兴旅的美食担当</strong></p> <p>72岁的江荣根在外工作了大半辈子，退休后以“游客”身份回到家乡兴化。促使他回乡“旅居”的，是一碗念念不忘的鱼汤面。</p> <p>“原本只想在亲戚家住两天就回上海，结果却在老家住了下来。”江荣根入住的民宿“枇杷苑”，老板王秀荣做得一手家乡菜，而最能打动江荣根的，还是那碗鱼汤面。</p> <p>鱼汤是将鳝鱼剔肉留骨，加入小鲫鱼、大猪骨煸炒，用文火慢炖到浓白，最后再把下好的面条放到汤头里。这一碗汤鲜味美的鱼汤面让江荣根穿过数十年岁月，吃到了“小时候的味道”。</p> <p>每年住在兴化的时间里，江荣根都会邀请他在上海的“退休团”朋友同来，春看垛田油菜，夏赏万亩荷塘，秋游水上森林，冬观候鸟翔集。沙沟古镇景区内的金沙沟水席馆，一道兴化鱼圆颇受大家的好评。“不少客人都说，就为这口鱼圆来的兴化，吃完还要打包几份带走。高峰期我们一天能卖掉大几百斤。”在金沙沟水席馆总经理张庄巧眼里，鱼汤面也好，鱼圆也罢，都是本乡人的家常饭菜，也是城里人舌尖上的乡愁记忆。</p> <p>以农兴旅，以旅促农，美食总是屡试不爽的关键。仅金沙沟水席馆这一家，一年上百万元的营业额中，淡水鱼有关的菜品销售占近七成。而像这样的餐馆，兴化境内的景区里比比皆是。</p> <p style=\"text-align: center;\"><img src=\"http://www.people.com.cn//NMediaFile/2024/0822/LOCAL17242819971464D92R8R6C7.jpg\" width=\"600\" height=\"567\" alt=\"每年6月的万人龙虾宴，是盱眙龙虾爆火的标志。许昌银摄\"></p> <p style=\"text-align: center;\"><span desc=\"desc\">每年6月的万人龙虾宴，是盱眙龙虾爆火的标志。许昌银摄</span></p> <p><strong>“接二连三”的，不止一条鱼</strong></p> <p>产业振兴是乡村振兴的重中之重。事实上，像“兴化的一条鱼”这样“接二连三”的故事，江苏还有很多。</p> <p>淮安市盱眙县有“中国龙虾之都”的美称，该县小龙虾养殖面积97万亩，从养殖、加工到餐饮，从事龙虾相关产业的人口超过20万，形成了一个年产值超300亿元的富民产业。去年投产的龙虾超级工厂，更让盱眙龙虾成为只需24小时就能从当地虾田送到全国消费者手中的即食美味。</p> <p>在无锡市惠山区阳山镇，3.5万亩桃林，5000多户桃农，成就了当地人的一项甜蜜产业。当地不光卖桃，还卖起了风景，全年200多万的游客带来农旅两旺，阳山农民人均可支配收入高达6.6万元。</p> <p>近些年，江苏持续倡导推动农村一二三产业融合发展。人民网从江苏省农业农村厅了解到，截至目前，江苏以“一村一品、一镇一特、一县一业”为抓手，已打造10亿元以上县域优势特色产业近200个，培育国家农业产业强镇60多个、全国“一村一品”示范村镇200多个。</p> <p>“一二三产业融合发展可以将资源优势转变为产品优势，产品优势转化为产业优势，产业优势转化为市场优势，是乡村产业振兴的进阶方向。其关键在于找准特色资源和优势产业，注重发挥龙头企业的带动作用，并持续优化产业链合作机制，切实带动农民增收。”江苏省农科院农产品加工研究所首席研究员李春阳说。</p><center></center> ', 0, 6, '', '2024-12-09 23:17:35', '2025-10-23 22:03:54');
 INSERT INTO `cms_article` VALUES (22, 8, '', '欢迎使用ChanCMS系统1', '', '2', '', '', '', '', '11', '/public/uploads/default/2025/04/02/1743577048415_source_01.jpg', '<p>欢迎使用ChanCMS系统1</p>', 0, 5, '', '2025-04-02 14:28:02', '2025-04-02 14:28:02');
-INSERT INTO `cms_article` VALUES (24, 8, '', '1', '', '2,1', '', 'article-book.html', '', '', '', '/public/uploads/default/2025/10/21/1761014737190_source_image.jpg', '<p>欢迎使用ChanCMS系统<img src=\"/public/uploads/default/2025/10/21/1761014747767_source_logo.jpg\" alt=\"\" width=\"600\" height=\"300\"></p>', 0, 1, '', '2025-10-21 10:45:23', '2025-10-21 10:45:23');
+INSERT INTO `cms_article` VALUES (24, 8, '', '1', '', '2,1', '', 'article-book.html', '', '', '', '/public/uploads/default/2025/10/21/1761014737190_source_image.jpg', '<p>欢迎使用ChanCMS系统<img src=\"http://localhost:3000/public/uploads/default/2025/10/21/1761014747767_source_logo.jpg\" alt=\"\" width=\"600\" height=\"300\"></p>\n<p>&lt;script&gt;alert(123)&lt;/script&gt;</p>', 0, 23, '', '2025-10-21 10:45:23', '2025-10-29 23:30:51');
 
 -- ----------------------------
 -- Table structure for cms_articletag
@@ -76,14 +76,14 @@ CREATE TABLE `cms_articletag`  (
   INDEX `id`(`id`) USING BTREE,
   INDEX `aid`(`aid`) USING BTREE,
   INDEX `tid`(`tid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章-标签表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章-标签表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cms_articletag
 -- ----------------------------
 INSERT INTO `cms_articletag` VALUES (3, 22, 2);
-INSERT INTO `cms_articletag` VALUES (8, 24, 2);
-INSERT INTO `cms_articletag` VALUES (9, 24, 1);
+INSERT INTO `cms_articletag` VALUES (38, 24, 2);
+INSERT INTO `cms_articletag` VALUES (39, 24, 1);
 
 -- ----------------------------
 -- Table structure for cms_category
@@ -321,20 +321,6 @@ CREATE TABLE `ext_download`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ext_test
--- ----------------------------
-DROP TABLE IF EXISTS `ext_test`;
-CREATE TABLE `ext_test`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aid` int(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '1' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of ext_test
--- ----------------------------
-
--- ----------------------------
 -- Table structure for plus_collect
 -- ----------------------------
 DROP TABLE IF EXISTS `plus_collect`;
@@ -493,15 +479,11 @@ CREATE TABLE `sys_loginlog`  (
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`, `createdAt`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_loginlog
 -- ----------------------------
-INSERT INTO `sys_loginlog` VALUES (84, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 01:21:48');
-INSERT INTO `sys_loginlog` VALUES (85, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:21:16');
-INSERT INTO `sys_loginlog` VALUES (86, 14, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:27:39');
-INSERT INTO `sys_loginlog` VALUES (87, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:33:09');
 INSERT INTO `sys_loginlog` VALUES (88, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:37:36');
 INSERT INTO `sys_loginlog` VALUES (89, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:39:48');
 INSERT INTO `sys_loginlog` VALUES (90, 11, '122.96.45.82', '中国', '', '', '', '', NULL, NULL, '2025-02-23 10:42:06');
@@ -599,6 +581,10 @@ INSERT INTO `sys_loginlog` VALUES (181, 14, '101.125.4.179', '中国', '江苏',
 INSERT INTO `sys_loginlog` VALUES (182, 14, '101.125.4.179', '中国', '江苏', '南京', '210000', 'CHINAUNICOM CHINA169 Jiangsu Province Network', '32.0858', '118.886', '2025-10-21 10:08:35');
 INSERT INTO `sys_loginlog` VALUES (183, 14, '101.125.4.179', '中国', '江苏', '南京', '210000', 'CHINAUNICOM CHINA169 Jiangsu Province Network', '32.0858', '118.886', '2025-10-22 09:54:55');
 INSERT INTO `sys_loginlog` VALUES (184, 14, '101.125.4.179', '中国', '江苏', '南京', '210000', 'CHINAUNICOM CHINA169 Jiangsu Province Network', '32.0858', '118.886', '2025-10-23 09:52:42');
+INSERT INTO `sys_loginlog` VALUES (185, 12, '122.96.147.113', '中国', '江苏', '南京', '', 'CNC Group CHINA169 Jiangsu Province Network', '32.0589', '118.7738', '2025-10-29 22:02:15');
+INSERT INTO `sys_loginlog` VALUES (186, 14, '122.96.147.113', '中国', '江苏', '南京', '', 'CNC Group CHINA169 Jiangsu Province Network', '32.0589', '118.7738', '2025-10-29 22:02:44');
+INSERT INTO `sys_loginlog` VALUES (187, 14, '122.96.147.113', '中国', '江苏', '南京', '', 'CNC Group CHINA169 Jiangsu Province Network', '32.0589', '118.7738', '2025-10-29 22:10:22');
+INSERT INTO `sys_loginlog` VALUES (188, 14, '122.96.147.113', '中国', '江苏', '南京', '', 'CNC Group CHINA169 Jiangsu Province Network', '32.0589', '118.7738', '2025-10-29 23:10:01');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1133,5 +1119,49 @@ CREATE TABLE `user_verification_codes`  (
 -- ----------------------------
 -- Records of user_verification_codes
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for wechat_scan_login
+-- ----------------------------
+DROP TABLE IF EXISTS `wechat_scan_login`;
+CREATE TABLE `wechat_scan_login`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键ID',
+  `scan_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '唯一扫码标识（生成二维码时创建，格式如 scan_xxxx）',
+  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态：0=未扫码，1=已关注待登录，2=已登录，3=已过期',
+  `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '扫码用户的微信openid（用户关注后填充）',
+  `unionid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '扫码用户的微信unionid（如有则填充，用于多公众号统一用户）',
+  `expire_time` datetime NOT NULL COMMENT '二维码过期时间（默认5分钟，与微信临时二维码有效期一致）',
+  `client_ip` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '生成二维码时的客户端IP（可选，用于日志追溯）',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间（自动更新）',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_scan_id`(`scan_id`) USING BTREE COMMENT '唯一索引：确保scan_id不重复',
+  INDEX `idx_openid`(`openid`) USING BTREE COMMENT '普通索引：优化按openid查询的效率',
+  INDEX `idx_status_expire`(`status`, `expire_time`) USING BTREE COMMENT '联合索引：优化按状态+过期时间查询的效率'
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '微信公众号扫码登录状态表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wechat_scan_login
+-- ----------------------------
+INSERT INTO `wechat_scan_login` VALUES (1, 'scan_95ff7f98a7aff3aee6072940', 0, NULL, NULL, '2025-11-01 22:33:39', '127.0.0.1', '2025-11-01 22:28:39', '2025-11-01 22:28:39');
+INSERT INTO `wechat_scan_login` VALUES (2, 'scan_9b2540c847a78867f2f1d81f', 0, NULL, NULL, '2025-11-01 22:36:49', '127.0.0.1', '2025-11-01 22:31:49', '2025-11-01 22:31:49');
+INSERT INTO `wechat_scan_login` VALUES (3, 'scan_d759686fde151a46d29af3fc', 0, NULL, NULL, '2025-11-01 22:37:05', '127.0.0.1', '2025-11-01 22:32:05', '2025-11-01 22:32:05');
+INSERT INTO `wechat_scan_login` VALUES (4, 'scan_b9822bab85d115cbf09d348a', 0, NULL, NULL, '2025-11-01 22:38:56', '127.0.0.1', '2025-11-01 22:33:57', '2025-11-01 22:33:57');
+INSERT INTO `wechat_scan_login` VALUES (5, 'scan_ac166311eace9db93cc6bce3', 0, NULL, NULL, '2025-11-01 22:39:01', '127.0.0.1', '2025-11-01 22:34:02', '2025-11-01 22:34:02');
+INSERT INTO `wechat_scan_login` VALUES (6, 'scan_f4ab3301b6fe2f8b47e669a3', 0, NULL, NULL, '2025-11-01 22:40:08', '127.0.0.1', '2025-11-01 22:35:09', '2025-11-01 22:35:09');
+INSERT INTO `wechat_scan_login` VALUES (7, 'scan_c7384d1ff76884fc786f24f8', 0, NULL, NULL, '2025-11-01 22:40:45', '127.0.0.1', '2025-11-01 22:35:45', '2025-11-01 22:35:45');
+INSERT INTO `wechat_scan_login` VALUES (8, 'scan_aef3191e028c096bed5d2955', 0, NULL, NULL, '2025-11-01 22:45:16', '127.0.0.1', '2025-11-01 22:40:16', '2025-11-01 22:40:16');
+INSERT INTO `wechat_scan_login` VALUES (9, 'scan_c0d1fb183ffad55fea8a2c6f', 0, NULL, NULL, '2025-11-01 22:49:35', '127.0.0.1', '2025-11-01 22:44:35', '2025-11-01 22:44:35');
+INSERT INTO `wechat_scan_login` VALUES (10, 'scan_0cbdf2e87af30fa6c96fe473', 3, NULL, NULL, '2025-11-01 22:50:06', '127.0.0.1', '2025-11-01 22:45:06', '2025-11-01 22:50:06');
+INSERT INTO `wechat_scan_login` VALUES (11, 'scan_1e3b72a46ec51748af86f43e', 0, NULL, NULL, '2025-11-01 22:58:02', '127.0.0.1', '2025-11-01 22:53:03', '2025-11-01 22:53:03');
+INSERT INTO `wechat_scan_login` VALUES (12, 'scan_f2a89d59b6f3cbb0fb58ec40', 0, NULL, NULL, '2025-11-01 22:58:11', '127.0.0.1', '2025-11-01 22:53:11', '2025-11-01 22:53:11');
+INSERT INTO `wechat_scan_login` VALUES (13, 'scan_6532b6a98bdd2e22037eb843', 0, NULL, NULL, '2025-11-01 23:00:28', '127.0.0.1', '2025-11-01 22:55:29', '2025-11-01 22:55:29');
+INSERT INTO `wechat_scan_login` VALUES (14, 'scan_541c95b3914d474600df660b', 0, NULL, NULL, '2025-11-01 23:00:37', '127.0.0.1', '2025-11-01 22:55:37', '2025-11-01 22:55:37');
+INSERT INTO `wechat_scan_login` VALUES (15, 'scan_a8c3d4cc654721e867858d0e', 0, NULL, NULL, '2025-11-01 23:01:15', '127.0.0.1', '2025-11-01 22:56:16', '2025-11-01 22:56:16');
+INSERT INTO `wechat_scan_login` VALUES (16, 'scan_b63e26d56cc5dd11f30f75cd', 0, NULL, NULL, '2025-11-01 23:06:32', '127.0.0.1', '2025-11-01 23:01:32', '2025-11-01 23:01:32');
+INSERT INTO `wechat_scan_login` VALUES (17, 'scan_6ece1870e762b5e47463b821', 0, NULL, NULL, '2025-11-01 23:06:41', '127.0.0.1', '2025-11-01 23:01:42', '2025-11-01 23:01:42');
+INSERT INTO `wechat_scan_login` VALUES (18, 'scan_4b8c3f53d68d823e2eb76253', 0, NULL, NULL, '2025-11-01 23:06:55', '127.0.0.1', '2025-11-01 23:01:56', '2025-11-01 23:01:56');
+INSERT INTO `wechat_scan_login` VALUES (19, 'scan_6d4be695f5174204c099b424', 0, NULL, NULL, '2025-11-01 23:11:24', '127.0.0.1', '2025-11-01 23:06:24', '2025-11-01 23:06:24');
+INSERT INTO `wechat_scan_login` VALUES (20, 'scan_1a91f678abec179d137515c7', 0, NULL, NULL, '2025-11-01 23:12:05', '127.0.0.1', '2025-11-01 23:07:06', '2025-11-01 23:07:06');
 
 SET FOREIGN_KEY_CHECKS = 1;

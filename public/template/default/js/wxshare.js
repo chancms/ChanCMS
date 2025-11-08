@@ -106,6 +106,12 @@ async function wxShare(shareConfig) {
 // 页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 
+  //判断是否是在微信浏览器打开
+  let ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) !== "micromessenger") {
+    return
+  }
+  
     let baseUrl = window.location.origin;
     // 1. 处理分享图片：优先og:image，无则用默认图，补全协议
     let imgUrl = document.querySelector('meta[property="og:image"]')?.content || 
