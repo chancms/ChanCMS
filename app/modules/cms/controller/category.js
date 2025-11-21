@@ -1,7 +1,5 @@
 const {
-  common: {
-    success ,
-  },
+  common: { success },
 } = Chan;
 
 import category from "../service/category.js";
@@ -81,7 +79,7 @@ let CategoryController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default CategoryController;

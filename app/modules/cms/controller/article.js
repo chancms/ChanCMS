@@ -11,7 +11,7 @@ const {
     APP_AUTHOR_WECHAT,
   },
   helper: { delImg },
-  common: { success, fail, filterBody},
+  common: { success, fail, filterBody },
 } = Chan;
 import article from "../service/article.js";
 

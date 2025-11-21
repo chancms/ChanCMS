@@ -1,9 +1,5 @@
-const {
-  config,
-  treeById, filterFields, htmlDecode
-} = Chan.helper;
-
-const {pages,getChildrenId} = Chan.common;
+const { config, treeById, filterFields, htmlDecode } = Chan.helper;
+const { pages, getChildrenId } = Chan.common;
 
 /**
  * @description 根据导航栏目获取首页视图文件
@@ -222,14 +218,16 @@ export const getApiCalls = (
   return apiCalls;
 };
 
-
-export const parseJsonFields = (obj)=> {
+export const parseJsonFields = (obj) => {
   const result = {};
   for (const key in obj) {
     if (!obj.hasOwnProperty(key)) continue;
     const value = obj[key];
     // 如果是字符串，并且看起来像 JSON（以 { 或 [ 开头）
-    if (typeof value === 'string' && (value.startsWith('{') || value.startsWith('['))) {
+    if (
+      typeof value === "string" &&
+      (value.startsWith("{") || value.startsWith("["))
+    ) {
       try {
         result[key] = JSON.parse(value);
       } catch (e) {
@@ -242,4 +240,4 @@ export const parseJsonFields = (obj)=> {
   }
 
   return result;
-}
+};

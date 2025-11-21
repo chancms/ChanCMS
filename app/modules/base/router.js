@@ -56,6 +56,7 @@ export default (app, router, config) => {
   router.post("/upload/imgs", auth(), multiUpload(),controller.Upload.uploadImgs);
   router.post("/upload/file", auth(), singleUpload(), controller.Upload.uploadFile);
   router.post("/upload/files",auth(),multiUpload(),controller.Upload.uploadFiles);
+  
   // router.post("/upload/chunk", auth(),chunk.upload,controller.Upload.chunkUpload);
   // router.post("/upload/merge", auth(),chunk.merge, controller.Upload.mergeChunk);
  

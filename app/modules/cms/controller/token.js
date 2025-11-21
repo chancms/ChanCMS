@@ -1,13 +1,7 @@
 const {
-  config: {
-    JWT_SECRET, JWT_EXPIRES_IN,
-  },
-  helper: {
-   setToken, getToken
-  },
-  common: {
-    success, fail ,
-  },
+  config: { JWT_SECRET, JWT_EXPIRES_IN },
+  helper: { setToken, getToken },
+  common: { success, fail },
 } = Chan;
 
 let TokenController = {
@@ -32,7 +26,7 @@ let TokenController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default TokenController;

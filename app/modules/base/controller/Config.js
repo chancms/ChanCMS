@@ -1,17 +1,16 @@
 const {
   config,
-  helper: {setToken, getToken},
-  common: {success, fail},
+  helper: { setToken, getToken },
+  common: { success, fail },
 } = Chan;
 
 import Config from "../service/Config.js";
 
-let ConfigController =  {
-
+let ConfigController = {
   async list(req, res, next) {
     try {
       const query = req.query || {};
-      const data = await Config.list({query});
+      const data = await Config.list({ query });
       res.json(data);
     } catch (err) {
       next(err);
@@ -21,7 +20,10 @@ let ConfigController =  {
   async getlist(req, res, next) {
     try {
       const query = req.query || {};
-      const data = await Config.list({query,field:["id","config_key","config_value"]});
+      const data = await Config.list({
+        query,
+        field: ["id", "config_key", "config_value"],
+      });
       res.json(data);
     } catch (err) {
       next(err);
@@ -41,7 +43,7 @@ let ConfigController =  {
   // 查
   async detail(req, res, next) {
     try {
-      let {id} = req.query;
+      let { id } = req.query;
       const data = await Config.detail(id);
       res.json(data);
     } catch (err) {
@@ -73,14 +75,14 @@ let ConfigController =  {
 
   //批量更新
   async updateMany(req, res, next) {
-   try {
-    const params = req.body;
-    const data = await Config.updateMany(params);
-    res.json(data);
-   } catch (err) {
-     next(err);
-   }
-  }
-}
+    try {
+      const params = req.body;
+      const data = await Config.updateMany(params);
+      res.json(data);
+    } catch (err) {
+      next(err);
+    }
+  },
+};
 
 export default ConfigController;

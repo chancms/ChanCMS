@@ -1,30 +1,24 @@
-const {
-  helper: { request },
-  knex,
-} = Chan;
+class CategoryService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "cms_category");
+  }
 
-
-let model = "cms_category";
-let db = Chan.Service(knex, model);
-const pageSize = 100;
-
-let CategoryService  = {
   // 增
   async create(body) {
     try {
-      const result = await db.insert(body);
-      return result ? "success" : "fail";
+      const res = await this.insert(body);
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 删
   async delete(id) {
     try {
-      const result = await knex(model).where("id", "=", id).del();
-      return { code: 200,data:result}
+      const res = await this.knex(this.model).where("id", "=", id).del();
+      return { code: 200, data: res };
     } catch (err) {
       console.error(err);
       return {
@@ -33,35 +27,37 @@ let CategoryService  = {
         data: { sql: err.sql, sqlMessage: err.sqlMessage },
       };
     }
-  },
+  }
 
   // 改
   async update(body) {
-    const { id,...params } = body;
+    const { id, ...params } = body;
     try {
-      const result = await knex(model).where("id", "=", id).update(params);
-      return result ? "success" : "fail";
+      const res = await this.knex(this.model)
+        .where("id", "=", id)
+        .update(params);
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 查全部栏目
   async find() {
     try {
-      const result = await db.all({"orderBy": "asc"});
-      return result;
+      const res = await this.all({ orderBy: "asc" });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 查栏目
   async findId(id) {
     try {
-      const data = await knex(model)
+      const data = await this.knex(this.model)
         .where("id", "=", id)
         .select([
           "id",
@@ -81,39 +77,60 @@ let CategoryService  = {
           "mid",
           "listView",
           "articleView",
-        ]);
-      return data[0];
+        ])
+        .first();
+      return data;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 查子栏目
   async findSubId(id) {
     try {
-      const result = await knex(model).where("pid", "=", id).select();
-      return result;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  },
-
-  // 搜索栏目
-  async search(key) {
-    try {
-      const result = key
-        ? await knex(model)
-            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
-            .orderBy("orderBy", "asc")
-        : await knex(model).orderBy("orderBy", "asc");
+      const result = await this.knex(this.model).where("pid", "=", id).select();
       return result;
     } catch (err) {
       console.error(err);
       throw err;
     }
   }
+
+  // 搜索栏目
+  async search(key) {
+    try {
+      let query = this.knex(this.model)
+        .leftJoin("cms_model", `${this.model}.mid`, "cms_model.id")
+        .select(`${this.model}.*`, "cms_model.model")
+        .orderBy(`${this.model}.orderBy`, "asc");
+
+      if (key) {
+        query = query.whereRaw(
+          `${this.model}.name COLLATE utf8mb4_general_ci LIKE ?`,
+          [`%${key}%`]
+        );
+      }
+
+      const res = await query;
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+
+    // try {
+    //   const res = key
+    //     ? await this.knex(this.model)
+    //         .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
+    //         .orderBy("orderBy", "asc")
+    //     : await this.knex(this.model).orderBy("orderBy", "asc");
+    //   return res;
+    // } catch (err) {
+    //   console.error(err);
+    //   throw err;
+    // }
+  }
 }
 
-export default CategoryService;
+export default new CategoryService();

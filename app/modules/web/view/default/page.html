@@ -21,12 +21,13 @@
 
         <div class="main center mt-10 flex gap-20">
             <aside class="flex-1">
-                  <!-- tag标签 -->
-                  <section class="notices pd-20 mb-20 bg-fff">
+                <!-- tag标签 -->
+                <section class="notices pd-20 mb-20 bg-fff">
                     <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
-                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
+                        <a class="el-tag mr-5 mb-5"
+                            href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
                         {{/each}}
                     </p>
                 </section>
@@ -45,7 +46,8 @@
                     <ul class="mt-10">
                         {{each page.list}}
                         <li class="f-16 pt-4 pb-4 flex bold  pl-10">
-                            <a href="{{$value.path}}/page-{{$value.id}}.html"  title="{{$value.title}}">{{$value.title}}</a>
+                            <a href="{{$value.path}}/page-{{$value.id}}.html"
+                                title="{{$value.title}}">{{$value.title}}</a>
                         </li>
                         {{/each}}
                     </ul>
@@ -80,7 +82,7 @@
                         {{@ article.content}}
                     </article>
                     {{else}}
-                        <p class="mt-35 mb-35 f-30 text-c">暂无内容</p>
+                    <p class="mt-35 mb-35 f-30 text-c">暂无内容</p>
                     {{/if}}
                 </div>
             </article>
@@ -91,9 +93,9 @@
     {{include './common/footer.html'}}
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-    
+
     {{include './common/js.html'}}
-   
+
 </body>
 
 </html>

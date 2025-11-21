@@ -1,12 +1,10 @@
 import dayjs from "dayjs";
 const {
   config,
-  helper: {
-     getToken ,
-  },
-  common: {success}
+  helper: { getToken },
+  common: { success },
 } = Chan;
-import loginLog from "../service/loginLog.js"
+import loginLog from "../service/loginLog.js";
 let LoginLogController = {
   // 增
   async create(req, res, next) {
@@ -38,15 +36,15 @@ let LoginLogController = {
   async list(req, res, next) {
     try {
       const { pageSize, cur } = req.query;
-      let data = await loginLog.list(cur, pageSize);
-      data.list.forEach((ele) => {
+      let result = await loginLog.list(cur, pageSize);
+      result.data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm:ss");
       });
-      res.json({ ...success, data: data });
+      res.json({ ...success, data: result.data });
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default LoginLogController;

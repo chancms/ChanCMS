@@ -4,8 +4,6 @@ import {
   calculateSignature,
 } from "../common/wechat-util.js";
 
-
-
 // 从全局对象获取配置和工具
 const {
   config: { NODE_ENV, AES_SALT },
@@ -103,4 +101,4 @@ const getConfig = async (req, res) => {
 
 export default {
   getConfig,
-}
+};

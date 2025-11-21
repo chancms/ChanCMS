@@ -4,4 +4,3 @@
  * @type {{level: number}}
  */
 export const WAF_LEVEL = process.env.WAF_LEVEL || 1; 
-

@@ -23,12 +23,11 @@
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a class="" href="/">首页</a> /
                     {{each position}}
-                        {{if $index < position.length-1}} 
-                        <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
+                    {{if $index < position.length-1}} <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
                         {{else}}
                         <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
                         {{/if}}
-                    {{/each}}
+                        {{/each}}
                 </div>
                 <div class="bg-fff radius-6 pd-25">
                     <header class="border-b pos-r">
@@ -36,7 +35,8 @@
                         <p class="f-12 mt-5 mb-26 flex">
 
                             <span class="c-999 ">
-                                <i class="ico-20 ico-time pos-r t-4"></i> {{ dateFormat(article.updatedAt, 'YYYY-MM-DD HH:mm:ss') }}
+                                <i class="ico-20 ico-time pos-r t-4"></i> 
+                                {{ dateFormat(article.updatedAt, 'YYYY-MM-DD HH:mm:ss') }}
                                 <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{article.author}}
                                 <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{article.pv}}）
                                 <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
@@ -95,14 +95,14 @@
         const match = pdfurl.match(regex);
         if (match && match.length > 1) {
             const content = match[1];
-            let url = '/public/pdfjs/web/viewer.html?file='+encodeURIComponent(`${content}`)
+            let url = '/public/pdfjs/web/viewer.html?file=' + encodeURIComponent(`${content}`)
             var iframe = document.getElementById("iframe");
             if (iframe) {
                 iframe.src = url
             }
         }
     </script>
-    
+
 </body>
 
 </html>

@@ -10,14 +10,14 @@ import bcrypt from "bcryptjs";
 
 let UserController = {
   async sendEmail(req, res, next) {
-    const { email, code,type } = req.body;
+    const { email, code, type } = req.body;
     let emailcode = genCode(code, EMAIL.CODE);
-    if(type === 'register'){
+    if (type === "register") {
       await sendMail(email, "注册验证码", genRegEmailHtml(emailcode));
-    }else{
+    } else {
       await sendMail(email, "修改密码验证码", genResetPasswordEmail(emailcode));
     }
-    
+
     res.json({ ...success, data: "邮件发送成功" });
   },
 
@@ -106,11 +106,14 @@ let UserController = {
       const { email, password } = req.body;
       //判断邮箱是否存在
       let user = await User.find(email);
-      if(user.code === 200 && user?.data?.list?.length > 0){
+      if (user.code === 200 && user?.data?.list?.length > 0) {
         let _password = await bcrypt.hash(password, parseInt(USER_SALT));
-        let data = await User.update({ query: { email }, params:{password: _password} });
+        let data = await User.update({
+          query: { email },
+          params: { password: _password },
+        });
         res.json(data);
-      }else{
+      } else {
         res.json({ ...fail, msg: "账号不存在！" });
       }
     } catch (err) {
@@ -123,7 +126,7 @@ let UserController = {
       let { id, phone, remark, sex, wechat } = req.body;
       let query = { id };
       let params = { phone, remark, sex, wechat };
-      const data = await User.update({query, params});
+      const data = await User.update({ query, params });
       res.json(data);
     } catch (err) {
       next(err);
@@ -134,21 +137,21 @@ let UserController = {
   async updatePass(req, res, next) {
     try {
       let { uid } = req.user;
-      let { password,newPassword } = req.body;
+      let { password, newPassword } = req.body;
       const result = await User.queryPass(uid);
       if (result.data.total === 1) {
         let user = result.data.list[0];
         const match = await bcrypt.compare(password, user.password);
-        if(user && match){
+        if (user && match) {
           let _password = await bcrypt.hash(newPassword, parseInt(USER_SALT));
-          let params = {password: _password}
-          let query = {id: uid}
-          const data = await User.update({query, params});
+          let params = { password: _password };
+          let query = { id: uid };
+          const data = await User.update({ query, params });
           res.json(data);
-        }else{
+        } else {
           res.json({ ...fail, msg: "原密码错误！" });
         }
-      }else{
+      } else {
         res.json({ ...fail, msg: "用户名或密码错误！" });
       }
     } catch (err) {

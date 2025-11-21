@@ -1,11 +1,7 @@
-import path from 'path';
-import fs from 'fs';
-
+import path from "path";
+import fs from "fs";
 const {
-  common: {
-    success ,
-    getHtmlFilesSync
-  },
+  common: { success, getHtmlFilesSync },
 } = Chan;
 import sysApp from "../service/sysApp.js";
 let SysAppController = {
@@ -63,7 +59,7 @@ let SysAppController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default SysAppController;

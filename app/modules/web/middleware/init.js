@@ -8,7 +8,7 @@ import home from "../service/home.js";
 export default () => {
   return async (req, res, next) => {
     try {
-      let { env, appName, version ,cache} = config;
+      let { env, appName, version, cache } = config;
       if ("site" in req.app.locals && env == "prd" && cache) {
         await next();
         return;
@@ -30,7 +30,7 @@ export default () => {
       };
       await next();
     } catch (error) {
-      console.error('--->>init error',error);
+      console.error("--->>init error", error);
       next(error);
     }
   };

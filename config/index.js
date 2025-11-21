@@ -1,6 +1,6 @@
 ﻿import app from "./app.js";
 import { cache } from "./cache.js";
-import { PASSWORD_SALT,USER_SALT,AES_SALT } from "./salt.js";
+import { PASSWORD_SALT, USER_SALT, AES_SALT } from "./salt.js";
 import { db } from "./database.js";
 import { jwt } from "./jwt.js";
 import { logger } from "./log.js";
@@ -14,8 +14,6 @@ import { cors } from "./cors.js";
 import { WAF_LEVEL } from "./waf.js";
 import { EMAIL } from "./email.js";
 import { WECHAT } from "./wechat.js";
-
-
 
 export default {
   ...app,
@@ -35,5 +33,5 @@ export default {
   upload,
   views,
   cors,
-  WECHAT
+  WECHAT,
 };

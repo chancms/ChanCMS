@@ -2,40 +2,38 @@
 <nav class="nav">
     <ul class="flex flex-wrap">
         {{each nav}}
-            {{if $value.status == 0}}
-                {{if $value.pinyin == 'home'}}
-                    <li class="nav-item"><a href="/" title="首页">首页</a></li>
-                {{else}}
-                    <li class="nav-item">
-                        {{if $value.type==0}}
-                        <a href="{{$value.path}}/index.html" title="{{$value.name}}">{{$value.name}}</a>
-                        {{else}}
-                        <a href="{{$value.path}}/page.html" title="{{$value.name}}">{{$value.name}}
-                        </a>
-                        {{/if}}
-                        {{if $value.children && $value.children.length>0}}
-                        <ul class="sub-nav">
-                            {{each $value.children}}
-                                {{if $value.status == 0}}
-                                <li class="sub-nav-item">
-                                    {{if $value.type==0}}
-                                    <a href="{{$value.path}}/index.html" title="{{$value.name}}">{{$value.name}}
-                                    </a>
-                                    {{else}}
-                                    <a href="{{$value.path}}/page.html" title="{{$value.name}}">{{$value.name}}
-                                    </a>
-                                    {{/if}}
-                                </li>
-                                {{/if}}
-                            {{/each}}
-                        </ul>
-                        {{/if}}
-                    </li>
-                {{/if}}
+        {{if $value.status == 0}}
+        {{if $value.pinyin == 'home'}}
+        <li class="nav-item"><a href="/" title="首页">首页</a></li>
+        {{else}}
+        <li class="nav-item">
+            {{if $value.type==0}}
+            <a href="{{$value.path}}/index.html" title="{{$value.name}}">{{$value.name}}</a>
+            {{else}}
+            <a href="{{$value.path}}/page.html" title="{{$value.name}}">{{$value.name}}
+            </a>
             {{/if}}
+            {{if $value.children && $value.children.length>0}}
+            <ul class="sub-nav">
+                {{each $value.children}}
+                {{if $value.status == 0}}
+                <li class="sub-nav-item">
+                    {{if $value.type==0}}
+                    <a href="{{$value.path}}/index.html" title="{{$value.name}}">{{$value.name}}
+                    </a>
+                    {{else}}
+                    <a href="{{$value.path}}/page.html" title="{{$value.name}}">{{$value.name}}
+                    </a>
+                    {{/if}}
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+            {{/if}}
+        </li>
+        {{/if}}
+        {{/if}}
         {{/each}}
     </ul>
 </nav>
 {{/if}}
-
-

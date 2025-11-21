@@ -1,10 +1,8 @@
-
-const {loadController } = Chan.helper;
+const { loadController } = Chan.helper;
 
 let controller = await loadController("vip");
 
 export default (app, router, config) => {
-  
   router.get("/file/tree", controller.CodeFile.tree);
   router.get("/file/content", controller.CodeFile.content);
   router.post("/file/save", controller.CodeFile.save);
@@ -12,5 +10,4 @@ export default (app, router, config) => {
 
   //配置前缀
   app.use("/vip/v1", router);
-
 };

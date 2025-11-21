@@ -11,10 +11,13 @@ const {
 const routers = (app, router, config) => {
   const { template = "default" } = config;
 
-
   //404处理
   router.use((req, res, next) => {
-    console.error(`[异常访问-404]  url-->:${req.url} ip-->:${getIp(req)} UA-->:${req.get("User-Agent")}`);
+    console.error(
+      `[异常访问-404]  url-->:${req.url} ip-->:${getIp(req)} UA-->:${req.get(
+        "User-Agent"
+      )}`
+    );
     res.render(`${template}/404.html`, { url: req.url });
   });
 

@@ -1,9 +1,7 @@
 const {
   config,
-  helper: { getToken},
-  common: {
-    success, fail ,
-  },
+  helper: { getToken },
+  common: { success, fail },
 } = Chan;
 import SysMenu from "../service/SysMenu.js";
 let SysMenuController = {

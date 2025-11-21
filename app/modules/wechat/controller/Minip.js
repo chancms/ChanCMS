@@ -5,7 +5,7 @@ const {
   config: {
     JWT_SECRET,
     JWT_EXPIRES_IN,
-    WECHAT: { MINIPROGRAM_APPID, MINIPROGRAM_APPSECRET }
+    WECHAT: { MINIPROGRAM_APPID, MINIPROGRAM_APPSECRET },
   },
   helper: { getIp, setToken, request },
   knex,
@@ -67,11 +67,11 @@ const login = async (req, res) => {
       openid,
       unionid: unionid || null,
       nickname: userInfo?.nickName || `小程序用户_${openid.slice(-6)}`,
-      headimgurl: userInfo?.avatarUrl || '',
+      headimgurl: userInfo?.avatarUrl || "",
       sex: userInfo?.gender || 0,
-      city: userInfo?.city || '',
-      country: userInfo?.country || '',
-      province: userInfo?.province || '',
+      city: userInfo?.city || "",
+      country: userInfo?.country || "",
+      province: userInfo?.province || "",
     };
 
     // 同步用户数据到本地数据库
@@ -79,7 +79,7 @@ const login = async (req, res) => {
       userInfo: completeUserInfo,
       tokenData: {
         access_token: session_key,
-        refresh_token: '',
+        refresh_token: "",
         expires_in: 7200,
       },
       ip: clientIp,
@@ -104,7 +104,6 @@ const login = async (req, res) => {
       },
       msg: "小程序登录成功",
     });
-
   } catch (error) {
     console.error("小程序登录失败:", error);
     const msg = error.response?.errcode
@@ -114,7 +113,6 @@ const login = async (req, res) => {
   }
 };
 
-
 export default {
-  login
+  login,
 };

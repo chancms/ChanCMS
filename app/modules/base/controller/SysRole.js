@@ -1,16 +1,11 @@
 const {
   config,
-  helper: {
-    getToken,
-  },
-  common: {
-    success, fail ,
-  },
+  helper: { getToken },
+  common: { success, fail },
 } = Chan;
 import SysRole from "../service/SysRole.js";
 
 let SysRoleController = {
-
   async list(req, res, next) {
     try {
       const query = req.query;
@@ -56,13 +51,13 @@ let SysRoleController = {
   // 改
   async update(req, res, next) {
     try {
-      let { roleId, roleData, menuIds} = req.body
-      const data = await SysRole.update({ roleId, roleData, menuIds});
+      let { roleId, roleData, menuIds } = req.body;
+      const data = await SysRole.update({ roleId, roleData, menuIds });
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default SysRoleController;

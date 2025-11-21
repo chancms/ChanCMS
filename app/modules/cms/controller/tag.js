@@ -1,7 +1,5 @@
 const {
-  common: {
-    success, fail ,
-  },
+  common: { success, fail },
 } = Chan;
 import tag from "../service/tag.js";
 let tagController = {
@@ -79,7 +77,7 @@ let tagController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default tagController;

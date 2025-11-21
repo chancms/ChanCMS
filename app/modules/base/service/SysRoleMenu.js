@@ -1,11 +1,7 @@
-const {
-  knex
-} = Chan;
-
-let model = "sys_role_menu";
-let db = Chan.Service(knex,model);
-const pageSize = 100;
-let SysRoleMenuService = {
+class SysRoleMenuService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "sys_role_menu");
+  }
 
   /**
    * @description 获取分页菜单列表
@@ -13,15 +9,19 @@ let SysRoleMenuService = {
    * @returns {Promise<Object>} 包含菜单列表、总数等信息的对象
    */
   async list(query) {
-    let res = await db.query({
-      current: 1,
-      pageSize: pageSize,
-      query,
-      field: ["role_id", "menu_id"],
-    });
-    return res;
+    try {
+      let res = await this.query({
+        current: 1,
+        pageSize: this.pageSize,
+        query,
+        field: ["role_id", "menu_id"],
+      });
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-
 }
 
-export default SysRoleMenuService;
+export default new SysRoleMenuService();

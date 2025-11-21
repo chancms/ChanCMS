@@ -1,8 +1,6 @@
 const {
-  common: {
-    success, fail ,
-  },
-  config
+  common: { success, fail },
+  config,
 } = Chan;
 import Site from "../service/Site.js";
 let SiteController = {
@@ -27,7 +25,6 @@ let SiteController = {
     }
   },
 
-
   // 获取磁盘信息
   async runEnv(req, res, next) {
     try {
@@ -35,7 +32,7 @@ let SiteController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default SiteController;

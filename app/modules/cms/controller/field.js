@@ -21,6 +21,8 @@ let FieldController  = {
     }
   },
 
+   
+
   // 删除
   async delete(req, res, next) {
     try {
@@ -47,8 +49,8 @@ let FieldController  = {
   async detail(req, res, next) {
     try {
       const { id } = req.query;
-      const data = await field.detail(id);
-      res.json({ ...success, data: data });
+      const result = await field.detail(id);
+      res.json({ ...success, data: result.data });
     } catch (err) {
       next(err);
     }

@@ -1,6 +1,6 @@
 const {
   knex,
-  helper: { filterFields,arrToObj },
+  helper: { filterFields, arrToObj },
 } = Chan;
 
 const common = {
@@ -523,60 +523,63 @@ const common = {
    */
   // 异步函数，用于查询标签
   async tags({ path, current = 1, pageSize = 10 }) {
-  try {
-    const start = (current - 1) * pageSize;
+    try {
+      const start = (current - 1) * pageSize;
 
-    // 查询总数
-    const totalResult = await knex('cms_article as a')
-      .whereExists((qb) => {
-        qb.select(knex.raw('1'))
-          .from('cms_tag as t')
-          .whereRaw('FIND_IN_SET(t.id, a.tagId) > 0') // 注意加上 > 0 判断
-          .where('t.path', path);
-      })
-      .andWhere('a.status', 0)
-      .count('a.id as total');
+      // 查询总数
+      const totalResult = await knex("cms_article as a")
+        .whereExists((qb) => {
+          qb.select(knex.raw("1"))
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0") // 注意加上 > 0 判断
+            .where("t.path", path);
+        })
+        .andWhere("a.status", 0)
+        .count("a.id as total");
 
-    const count = parseInt(totalResult[0].total, 10);
+      const count = parseInt(totalResult[0].total, 10);
 
-    // 查询分页数据
-    const result = await knex('cms_article as a')
-      .select(
-        'a.id',
-        'a.title',
-        'a.shortTitle',
-        'a.img',
-        'a.description',
-        'a.createdAt',
-        'a.author',
-        'a.pv',
-        'c.pinyin',
-        'c.name',
-        'c.path'
-      )
-      .join('cms_category as c', 'a.cid', 'c.id')
-      .whereExists((qb) => {
-        qb.select(knex.raw('1'))
-          .from('cms_tag as t')
-          .whereRaw('FIND_IN_SET(t.id, a.tagId) > 0')
-          .where('t.path', path);
-      })
-      .andWhere('a.status', 0)
-      .orderBy('a.createdAt', 'desc')
-      .offset(start)
-      .limit(pageSize);
+      // 查询分页数据
+      const result = await knex("cms_article as a")
+        .select(
+          "a.id",
+          "a.title",
+          "a.shortTitle",
+          "a.img",
+          "a.description",
+          "a.createdAt",
+          "a.author",
+          "a.pv",
+          "c.pinyin",
+          "c.name",
+          "c.path"
+        )
+        .join("cms_category as c", "a.cid", "c.id")
+        .whereExists((qb) => {
+          qb.select(knex.raw("1"))
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
+            .where("t.path", path);
+        })
+        .andWhere("a.status", 0)
+        .orderBy("a.createdAt", "desc")
+        .offset(start)
+        .limit(pageSize);
 
-    return {
-      count,
-      total: Math.ceil(count / pageSize),
-      current,
-      list: result,
-    };
-  } catch (err) {
-    console.error(`path->${path}, current->${current}, pageSize->${pageSize}`, err);
-    throw err;
-  }
-},
+      return {
+        count,
+        total: Math.ceil(count / pageSize),
+        current,
+        list: result,
+      };
+    } catch (err) {
+      console.error(
+        `path->${path}, current->${current}, pageSize->${pageSize}`,
+        err
+      );
+      throw err;
+    }
+  },
 
   /**
    * @description 通过文章id获取tags
@@ -655,7 +658,7 @@ const common = {
         .limit(pageSize)
         .offset(0)
         .orderBy("id", "desc");
-      const frags = arrToObj(list, "mark","content");
+      const frags = arrToObj(list, "mark", "content");
       return frags;
     } catch (err) {
       console.error(err);
@@ -682,49 +685,48 @@ const common = {
   },
 
   async article(id) {
-  try {
-    const data = await knex("cms_article").where("id", "=", id).first();
-    if (!data || !data.cid) {
-      return false;
+    try {
+      const data = await knex("cms_article").where("id", "=", id).first();
+      if (!data || !data.cid) {
+        return false;
+      }
+
+      const modIdResult = await knex("cms_category")
+        .select("mid")
+        .where("id", data.cid)
+        .first();
+
+      if (!modIdResult || modIdResult.mid === "0") {
+        return { ...data, field: {} };
+      }
+
+      const tableResult = await knex("cms_model")
+        .select("tableName")
+        .where("id", modIdResult.mid)
+        .first();
+
+      if (!tableResult) {
+        return { ...data, field: {} };
+      }
+
+      const tableNameStr = tableResult.tableName;
+      // 严格校验表名
+      if (!/^[a-zA-Z0-9_]+$/.test(tableNameStr)) {
+        throw new Error("Invalid table name");
+      }
+
+      const fieldResult = await knex
+        .select("*")
+        .from(tableNameStr)
+        .where("aid", id)
+        .first();
+
+      return { ...data, field: fieldResult || {} };
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
-
-
-    const modIdResult = await knex("cms_category")
-      .select("mid")
-      .where("id", data.cid)
-      .first();
-
-    if (!modIdResult || modIdResult.mid === "0") {
-      return { ...data, field: {} };
-    }
-
-    const tableResult = await knex("cms_model")
-      .select("tableName")
-      .where("id", modIdResult.mid)
-      .first();
-
-    if (!tableResult) {
-      return { ...data, field: {} };
-    }
-
-    const tableNameStr = tableResult.tableName;
-    // 严格校验表名
-    if (!/^[a-zA-Z0-9_]+$/.test(tableNameStr)) {
-      throw new Error("Invalid table name");
-    }
-
-    const fieldResult = await knex
-      .select("*")
-      .from(tableNameStr)
-      .where("aid", id)
-      .first();
-
-    return { ...data, field: fieldResult || {} };
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-},
+  },
 
   // 上一篇文章
   async prev({ id, cid }) {
@@ -774,59 +776,59 @@ const common = {
   },
 
   async search({ keywords = "", current = 1, pageSize = 10, cid = 0 }) {
-  try {
-    const offset = (current - 1) * pageSize;
+    try {
+      const offset = (current - 1) * pageSize;
 
-    let queryBuilder = knex('cms_article as a')
-      .leftJoin('cms_category as c', 'a.cid', 'c.id')
-      .select(
-        'a.id',
-        'a.title',
-        'a.attr',
-        'a.tagId',
-        'a.description',
-        'a.cid',
-        'a.pv',
-        'a.createdAt',
-        'a.status',
-        'c.name',
-        'c.path'
-      )
-      .where('a.status', 0);
+      let queryBuilder = knex("cms_article as a")
+        .leftJoin("cms_category as c", "a.cid", "c.id")
+        .select(
+          "a.id",
+          "a.title",
+          "a.attr",
+          "a.tagId",
+          "a.description",
+          "a.cid",
+          "a.pv",
+          "a.createdAt",
+          "a.status",
+          "c.name",
+          "c.path"
+        )
+        .where("a.status", 0);
 
-    if (keywords.trim()) {
-      queryBuilder.where('a.title', 'like', `%${keywords.trim()}%`);
+      if (keywords.trim()) {
+        queryBuilder.where("a.title", "like", `%${keywords.trim()}%`);
+      }
+
+      if (cid !== 0) {
+        queryBuilder.where("c.id", cid);
+      }
+
+      // 获取总数
+      const totalResult = await knex
+        .count("* as count")
+        .from(queryBuilder.as("temp_query"))
+        .first();
+      const count = parseInt(totalResult.count, 10);
+
+      // 获取分页数据
+      const list = await queryBuilder
+        .clone()
+        .orderBy("a.id", "desc")
+        .offset(offset)
+        .limit(pageSize);
+
+      return {
+        count,
+        total: Math.ceil(count / pageSize),
+        current: +current,
+        list,
+      };
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
-
-    if (cid !== 0) {
-      queryBuilder.where('c.id', cid);
-    }
-
-    // 获取总数
-    const totalResult = await knex
-      .count('* as count')
-      .from(queryBuilder.as('temp_query'))
-      .first();
-    const count = parseInt(totalResult.count, 10);
-
-    // 获取分页数据
-    const list = await queryBuilder
-      .clone()
-      .orderBy('a.id', 'desc')
-      .offset(offset)
-      .limit(pageSize);
-
-    return {
-      count,
-      total: Math.ceil(count / pageSize),
-      current: +current,
-      list,
-    };
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-},
+  },
 
   /**
    * 查找所有符合条件的记录，并提供分页信息。

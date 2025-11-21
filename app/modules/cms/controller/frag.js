@@ -1,8 +1,6 @@
 import dayjs from "dayjs";
 const {
-  common: {
-    success
-  },
+  common: { success },
 } = Chan;
 
 import frag from "../service/frag.js";
@@ -98,7 +96,7 @@ let FragController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default FragController;

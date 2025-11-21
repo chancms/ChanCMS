@@ -1,117 +1,82 @@
-const { knex } = Chan;
-
-let model = "cms_friendlink";
-let db = Chan.Service(knex, model);
-const pageSize = 100;
-let FriendlinkService = {
+class FriendlinkService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "cms_friendlink");
+  }
 
   // 新增
   async create(body) {
     try {
-      const result = await knex(model).insert(body);
-      return result ? "success" : "fail";
+      const res = await this.insert(body);
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 删
   async delete(id) {
     try {
-      const res = await knex(model).where("id", "=", id).del();
-      return res ? "success" : "fail";
+      const res = await super.delete({ id });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 修改
   async update(body) {
-    const { id } = body;
-    delete body.id;
+    const { id, createdAt, updatedAt, ...params } = body;
     try {
-      const result = await knex(model).where("id", "=", id).update(body);
-      return result ? "success" : "fail";
+      const res = await super.update({ query: { id }, params });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 列表
   async list(cur = 1, pageSize = 10) {
     try {
-      // 查询个数
-      const total = await knex(model).count("id", {
-        as: "count",
+      let res = await this.query({
+        current: cur,
+        pageSize: pageSize,
+        query: {},
+        field: ["*"],
       });
-      const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex
-        .select("*")
-        .from(model)
-        .limit(pageSize)
-        .offset(offset)
-        .orderBy("id", "desc");
-      const count = total[0].count || 1;
-    
-      return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current: +cur,
-        list: list,
-      };
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 查
   async detail(id) {
     try {
-      const data = await knex
-        .select(["id", "link", "orderBy", "title"])
-        .from(model)
-        .where("id", "=", id);
-      return data[0];
+      const res = await this.findById({
+        query: { id },
+        field: ["*"],
+      });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 搜索
   async search(key = "", cur = 1, pageSize = 10) {
     try {
-      // 查询个数
-      const total = key
-        ? await knex(model).count("id", { as: "count" })
-        : await knex(model)
-            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
-            .count("id", { as: "count" });
-      const offset = parseInt((cur - 1) * pageSize);
-      const list = key
-        ? await knex
-            .select(["id", "name", "mark"])
-            .from(model)
-            .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
-            .limit(pageSize)
-            .offset(offset)
-            .orderBy("id", "desc")
-        : await knex
-            .select(["id", "name", "mark"])
-            .from(model)
-            .limit(pageSize)
-            .offset(offset)
-            .orderBy("id", "desc");
-      return {
-        count: count,
-        total: Math.ceil(count / pageSize),
-        current: +cur,
-        list: list[0],
-      };
+      let res = await this.query({
+        current: cur,
+        pageSize: pageSize,
+        query: key ? { title: { like: `%${key}%` } } : {},
+        field: ["*"],
+      });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
@@ -119,4 +84,4 @@ let FriendlinkService = {
   }
 }
 
-export default FriendlinkService;
+export default new FriendlinkService();

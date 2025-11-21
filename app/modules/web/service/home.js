@@ -1,20 +1,14 @@
 let {
-  helper: {
-     filterFields ,
-  }
+  helper: { filterFields },
 } = Chan;
-import common from './common.js';
+import common from "./common.js";
 
-import { getApiCalls } from '../utils/index.js';
+import { getApiCalls } from "../utils/index.js";
 const home = {
   async init() {
     try {
       const config = Chan.config?.data?.init || {};
-      const apiCalls = getApiCalls(
-        config,
-        {},
-        common
-      );
+      const apiCalls = getApiCalls(config, {}, common);
 
       // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
       let results = await Promise.all(Object.values(apiCalls));
@@ -32,17 +26,13 @@ const home = {
       throw err;
     }
   },
-  
+
   // 首页
   async home() {
     try {
       const config = Chan.config.data.home;
-      const apiCalls = getApiCalls(
-        config,
-        {},
-        common
-      );
-     
+      const apiCalls = getApiCalls(config, {}, common);
+
       // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
       let results = await Promise.all(Object.values(apiCalls));
 
@@ -65,14 +55,14 @@ const home = {
     try {
       const config = Chan.config.data.list;
       const apiCalls = getApiCalls(
-        config, 
-        { 
-          cid, 
-          current 
+        config,
+        {
+          cid,
+          current,
         },
         common
       );
-     
+
       // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
       let results = await Promise.all(Object.values(apiCalls));
 
@@ -89,16 +79,16 @@ const home = {
       throw err;
     }
   },
-  
+
   // 文章页
   async article({ id, cid }) {
     try {
       const config = Chan.config.data.article;
       const apiCalls = getApiCalls(
         config,
-        { 
+        {
           id,
-          cid
+          cid,
         },
         common
       );
@@ -128,7 +118,7 @@ const home = {
       const apiCalls = getApiCalls(
         config,
         {
-          cid
+          cid,
         },
         common
       );
@@ -156,8 +146,8 @@ const home = {
       const apiCalls = getApiCalls(
         config,
         {
-          keywords, 
-          current
+          keywords,
+          current,
         },
         common
       );
@@ -185,8 +175,8 @@ const home = {
       const apiCalls = getApiCalls(
         config,
         {
-          path, 
-          current
+          path,
+          current,
         },
         common
       );
@@ -203,7 +193,7 @@ const home = {
       console.error(err);
       throw err;
     }
-  }
+  },
 };
 
 export default home;

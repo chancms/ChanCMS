@@ -1,11 +1,7 @@
-const {
-  knex
-} = Chan;
-
-let model = "sys_user_role";
-let db = Chan.Service(knex,model);
-const pageSize = 100;
-let SysUserRoleService  = {
+class SysUserRoleService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "sys_user_role");
+  }
 
   /**
    * @description 根据菜单ID查找菜单信息
@@ -13,10 +9,14 @@ let SysUserRoleService  = {
    * @returns {Promise<Object|null>} 返回找到的菜单对象或null
    */
   async detail(id) {
-    const res = await db.findById({ query:{user_id:id}});
-    return res;
+    try {
+      const res = await this.findById({ query: { user_id: id } });
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-
 }
 
-export default SysUserRoleService;
+export default new SysUserRoleService();

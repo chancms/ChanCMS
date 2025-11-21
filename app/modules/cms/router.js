@@ -1,15 +1,12 @@
-import auth  from "../../middleware/auth.js";
+import auth from "../../middleware/auth.js";
 import init from "../../middleware/init.js";
 
-
-const { 
-loadController } = Chan.helper;
-const { singleUpload, } = Chan.common;
+const { loadController } = Chan.helper;
+const { singleUpload } = Chan.common;
 
 let controller = await loadController("cms");
 
 export default (app, router, config) => {
-
   router.use(init());
 
   // 站点信息
@@ -45,7 +42,7 @@ export default (app, router, config) => {
   //router.post("/upload", auth(), upload.any(), controller.article.upload);
   router.get("/article/delfile", auth(), controller.article.delfile);
   // 七牛云相关
-  router.get("/qiniu/getUploadToken",auth(),  controller.qiniu.getUploadToken);
+  router.get("/qiniu/getUploadToken", auth(), controller.qiniu.getUploadToken);
   router.post("/qiniu/upload", auth(), singleUpload(), controller.qiniu.upload);
 
   // 模型管理
@@ -104,8 +101,8 @@ export default (app, router, config) => {
   router.post("/slide/update", auth(), controller.slide.update);
 
   //页面采集
-  router.post("/collect/getPages", auth(),controller.collect.getPages);
-  router.post("/collect/getArticle",auth(), controller.collect.getArticle);
+  router.post("/collect/getPages", auth(), controller.collect.getPages);
+  router.post("/collect/getArticle", auth(), controller.collect.getArticle);
   router.get("/collect/list", controller.collect.list);
   router.get("/collect/search", controller.collect.search);
   router.get("/collect/detail", controller.collect.detail);
@@ -114,7 +111,7 @@ export default (app, router, config) => {
   router.post("/collect/update", auth(), controller.collect.update);
 
   //接口采集
-  router.get("/gather/getArticle",auth(), controller.gather.getArticle);
+  router.get("/gather/getArticle", auth(), controller.gather.getArticle);
   router.get("/gather/list", controller.gather.list);
   router.get("/gather/search", controller.gather.search);
   router.get("/gather/detail", controller.gather.detail);

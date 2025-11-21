@@ -1,33 +1,30 @@
-// import BaseService from './base.js';
-const { knex } = Chan;
-let model = "cms_site";
-let db = Chan.Service(knex, model);
-const pageSize = 100;
-let SiteService = {
+class SiteService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "cms_site");
+  }
 
   // 基本信息
   async info() {
     try {
-      let res = await db.all();
-      res.data = res.data[0];
+      let res = await this.one();
       return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
-// 更新基本信息
+  }
+
+  // 更新基本信息
   async updateInfo(body) {
     const { id, ...params } = body;
     try {
-      const result = await db.update({query:{id:id}, params});
-      return result ? "success" : "fail";
+      const res = await this.update({query:{id:id}, params});
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
   }
-  
 }
 
-export default SiteService;
+export default new SiteService();

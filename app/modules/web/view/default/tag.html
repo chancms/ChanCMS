@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description"content="{{site.description}}">
-    <meta name="keywords" content="{{site.keywords}}"/>
+    <meta name="description" content="{{site.description}}">
+    <meta name="keywords" content="{{site.keywords}}" />
     <meta property="og:title" content="{{site.title}}" />
     <meta property="og:description" content="{{site.description}}" />
     <title>{{path}}-{{site.name}}</title>
@@ -41,17 +41,18 @@
                                     <h3 class="f-18 ellips-2 bold mt-4 c-141414">
                                         <a href="{{$value.path}}/article-{{$value.id}}.html"
                                             title="{{$value.title}}">{{$value.title}}</a>
-                                            
+
                                     </h3>
                                     <p class="f-12 mb-8 flex">
                                         <a class="el-tag mr-5 mb-5">{{$value.name}}</a>
 
                                         <span class="c-bfbfbf">
-                                        <i class="ico-20 ico-time pos-r t-4"></i> {{ dateFormat($value.createdAt, 'YYYY-MM-DD HH:mm:ss') }}
-                                        <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{$value.author ||'admin'}}
-                                        <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{$value.pv}}）
-                                        <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
-                                    </span>
+                                            <i class="ico-20 ico-time pos-r t-4"></i> 
+                                            {{ dateFormat($value.createdAt,'YYYY-MM-DD HH:mm:ss') }}
+                                            <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{$value.author ||'admin'}}
+                                            <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{$value.pv}}）
+                                            <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
+                                        </span>
 
                                     </p>
                                     <p class="f-14 ellips-3 c-595959">
@@ -79,10 +80,10 @@
                 {{if pageHtml}}
                 <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
                     <ul class="overflow-h center" id="page">
-                      {{@ pageHtml}}
-                    </ul> 
-               </div>
-               {{/if}}
+                        {{@ pageHtml}}
+                    </ul>
+                </div>
+                {{/if}}
 
             </article>
 
@@ -92,7 +93,8 @@
                     <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
-                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
+                        <a class="el-tag mr-5 mb-5"
+                            href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
                         {{/each}}
                     </p>
                 </section>
@@ -114,7 +116,7 @@
     {{include './common/footer.html'}}
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-    
+
     {{include './common/js.html'}}
     <!-- <script>
       function toTag(){

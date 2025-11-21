@@ -1,23 +1,31 @@
 import dayjs from "dayjs";
 import * as cheerio from "cheerio";
-import {isValidTargetUrl} from "../../../middleware/guard.js";
-import {cleanHtml} from "../../../middleware/clearhtml.js";
+import { isValidTargetUrl } from "../../../middleware/guard.js";
+import { cleanHtml } from "../../../middleware/clearhtml.js";
 const {
-  common: {
-    success ,fail
-  },
+  common: { success, fail },
 } = Chan;
 
 import collect from "../service/collect.js";
 
-let CollectController  = {
-
+let CollectController = {
   async getPages(req, res, next) {
     try {
       let arr = [];
+      /**
+       * 获取目标网页中指定标签的所有链接
+       * @param {Object} req - 请求对象，包含目标URL、列表标签和字符集
+       * @param {string} req.body.targetUrl - 要抓取的目标网页URL
+       * @param {string} req.body.listTag - 包含链接的HTML标签选择器
+       * @param {string} req.body.charset - 网页字符编码
+       * @param {Object} res - 响应对象
+       * @param {Function} next - 错误处理中间件
+       * @returns {Promise<void>} 返回包含链接数组的JSON响应
+       * @throws {Error} 当目标URL无效或抓取过程中出错时抛出异常
+       */
       const { targetUrl, listTag, charset } = req.body;
-       if (!isValidTargetUrl(targetUrl)) {
-          return "不允许访问的目标地址";
+      if (!isValidTargetUrl(targetUrl)) {
+        return "不允许访问的目标地址";
       }
       const data = await collect.common(targetUrl, charset);
       const $ = cheerio.load(data.toString(), { decodeEntities: false });
@@ -33,40 +41,46 @@ let CollectController  = {
   //测试列表所有地址
   async getArticle(req, res, next) {
     try {
-
-      const { taskUrl, titleTag, articleTag, parseData, charset = 'utf8' } = req.body;
+      const {
+        taskUrl,
+        titleTag,
+        articleTag,
+        parseData,
+        charset = "utf8",
+      } = req.body;
 
       // 1. 获取页面内容
       const dataStr = await collect.common(taskUrl, charset);
       const $ = cheerio.load(dataStr.toString(), { decodeEntities: false });
-  
+
       // 2. 提取标题
       const title = $(titleTag).text().trim();
-  
+
       // 3. 提取内容
       let $content = $(articleTag).clone();
       let html = $content.html();
 
-      console.log('parseData--->', html)
-  
       // 4. 应用清洗
       try {
         const cleanOptions = JSON.parse(parseData) || {};
       } catch (error) {
-        console.log('error--->', error)
-        return res.json({...fail,msg:'清理配置非标准JSON',data:error.toString()})
+        console.log("error--->", error);
+        return res.json({
+          ...fail,
+          msg: "清理配置非标准JSON",
+          data: error.toString(),
+        });
       }
       const cleanOptions = JSON.parse(parseData) || {};
       html = cleanHtml(html, cleanOptions);
-  
+
       res.json({
         ...success,
         data: {
           title,
-          article: html
-        }
+          article: html,
+        },
       });
-      
     } catch (error) {
       next(error);
     }
@@ -142,7 +156,7 @@ let CollectController  = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default CollectController;

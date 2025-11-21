@@ -1,22 +1,16 @@
 import dayjs from "dayjs";
 const {
   config,
-  helper: {
-    setToken, getToken, 
-    getIp
-  },
-  common: {
-    success, fail ,
-  },
+  helper: { setToken, getToken, getIp },
+  common: { success, fail },
 } = Chan;
 import SysUser from "../service/SysUser.js";
 import SysMenu from "../service/SysMenu.js";
 import bcrypt from "bcryptjs";
 let SysUserController = {
-
   async login(req, res, next) {
     try {
-      let { username, password,f, i } = req.body;
+      let { username, password, f, i } = req.body;
       const result = await SysUser.find(username);
       if (result.code == 200 && Object.keys(result.data).length > 0) {
         let user = result.data;
@@ -29,7 +23,7 @@ let SysUserController = {
           const { id, status } = user;
           // 设置token
           const token = setToken(
-            { uid: id, username,f, i },
+            { uid: id, username, f, i },
             config.JWT_SECRET,
             config.JWT_EXPIRES_IN
           );
@@ -63,7 +57,10 @@ let SysUserController = {
   async create(req, res, next) {
     try {
       const body = req.body;
-      body.password = await bcrypt.hash(body.password, parseInt(config.PASSWORD_SALT));
+      body.password = await bcrypt.hash(
+        body.password,
+        parseInt(config.PASSWORD_SALT)
+      );
       const data = await SysUser.create(body);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -115,7 +112,7 @@ let SysUserController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default SysUserController;

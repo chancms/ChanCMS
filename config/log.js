@@ -1,3 +1,3 @@
 export const logger = {
-    level: process.env.LOGGER_LEVEL || "tiny",
-  };
+  level: process.env.LOGGER_LEVEL || "tiny",
+};

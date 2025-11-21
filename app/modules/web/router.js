@@ -1,5 +1,5 @@
 import init from "./middleware/init.js";
-import site from "../../middleware/init.js"
+import site from "../../middleware/init.js";
 import adapter from "./middleware/adapter.js";
 import safe from "express-safe";
 const {
@@ -7,7 +7,6 @@ const {
 } = Chan;
 let controller = await loadController("web");
 export default async (app, router, config) => {
-
   router.use(adapter());
   router.use(safe());
   router.use(site());

@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description"content="{{site.description}}">
-    <meta name="keywords" content="{{site.keywords}}"/>
+    <meta name="description" content="{{site.description}}">
+    <meta name="keywords" content="{{site.keywords}}" />
     <meta property="og:title" content="{{site.title}}" />
     <meta property="og:description" content="{{site.description}}" />
     <title>{{site.title}}-{{site.name}}</title>
@@ -21,7 +21,7 @@
         <div class="main center mt-10 flex gap-20">
             <!-- 最新文章 -->
             <article class="article-index">
-                <section class="flex flex-wrap justify-between gap-10  mb-20" >
+                <section class="flex flex-wrap justify-between gap-10  mb-20">
                     {{ if banner&&banner.length>0}}
                     <div class="swiper">
                         <div class="swiper-wrapper">
@@ -36,17 +36,16 @@
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
-                        </div>
+                    </div>
                     {{/if}}
-                        
+
                     <div class="w-520 h-290 bg-fff pd-20">
-                      
+
                         {{if top}}
                         <div class="flex justify-between">
                             <h2 class="f-16 ellips-2 c-1a1a1a">{{top.title}}</h2>
                             <p class="f-14  ellips-3  mb-10 mt-10">
-                                {{top.description}}<a class="c-003a8c"
-                                    href="{{top.path}}/article-{{top.id}}.html"
+                                {{top.description}}<a class="c-003a8c" href="{{top.path}}/article-{{top.id}}.html"
                                     title="{{top.title}}">详情</a>
                             </p>
                         </div>
@@ -63,9 +62,9 @@
                             {{/each}}
                         </ul>
                         {{/if}}
-                       
+
                     </div>
-                   
+
                 </section>
                 <section class="flex flex-wrap justify-between gap-10">
                     {{each article.list}}
@@ -75,7 +74,8 @@
                         {{if $value.top.title}}
                         <figure class="flex justify-between">
                             <div class="thumb-120">
-                                <img class="w-p100" src="{{$value.top.img}}" alt="{{$value.top.title}}" title="{{$value.top.title}}">
+                                <img class="w-p100" src="{{$value.top.img}}" alt="{{$value.top.title}}"
+                                    title="{{$value.top.title}}">
                             </div>
                             <div class="flex-1">
                                 <figcaption class="f-14 ellips-2 bold mb-4">{{$value.top.title}}</figcaption>
@@ -92,8 +92,9 @@
                         <ul class="w-460-list mt-16">
                             {{each $value.list}}
                             <li class="f-14 pt-4 pb-4 flex justify-between"><a
-                                    href="{{$value.path}}/article-{{$value.id}}.html" {{$value.title}}>{{$value.title}}</a><time
-                                    class="c-999">{{ dateFormat($value.createdAt, 'YYYY-MM-DD HH:mm:ss') }}</time></li>
+                                    href="{{$value.path}}/article-{{$value.id}}.html"
+                                    {{$value.title}}>{{$value.title}}</a><time class="c-999">{{
+                                    dateFormat($value.createdAt, 'YYYY-MM-DD HH:mm:ss') }}</time></li>
                             {{/each}}
                         </ul>
                         {{/if}}
@@ -130,7 +131,7 @@
 
             <aside class="flex-1">
                 <!-- 介绍文本 -->
-                 {{if frag["chancms"]}}
+                {{if frag["chancms"]}}
                 <section class="notices pd-20 mb-20 bg-fff">
                     {{@ frag["chancms"]}}
                 </section>
@@ -155,7 +156,8 @@
                     <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
-                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
+                        <a class="el-tag mr-5 mb-5"
+                            href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
                         {{/each}}
                     </p>
                 </section>
@@ -175,7 +177,8 @@
                     <h3 class="m-title border-dashed f-16 flex justify-between">推荐图文</h3>
                     {{each recommendImgs}}
                     <figure class="flex justify-between mt-10 border-dashed">
-                        <div class="thumb mb-10"><img class="w-p100" src="{{$value.img}}" alt="{{$value.title}}" title="{{$value.title}}"></div>
+                        <div class="thumb mb-10"><img class="w-p100" src="{{$value.img}}" alt="{{$value.title}}"
+                                title="{{$value.title}}"></div>
                         <div class="flex-1  mb-20">
                             <figcaption class="f-14 ellips-2 bold mt-4 mb-4">{{$value.title}}</figcaption>
                             <p class="f-13 ellips-3">
@@ -193,14 +196,10 @@
 
     <!-- footer -->
     {{include './common/footer.html'}}
-    
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-
-    
-    
     {{include './common/js.html'}}
-    
+
 </body>
 
 </html>

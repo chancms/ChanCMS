@@ -1,21 +1,21 @@
-const {
-  knex
-} = Chan;
-
-let model = "sys_user";
-let db = Chan.Service(knex,model);
-const pageSize = 100;
-let SysUserService = {
- 
+class SysUserService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "sys_user");
+  }
 
   async find(username) {
-      const res = await db.findById({
+    try {
+      const res = await this.findById({
         query: { username },
         field: ["id", "username", "password", "status"],
         len: 1,
       });
       return res;
-  },
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
   /**
    * @description 根据菜单ID查找菜单信息
@@ -23,29 +23,36 @@ let SysUserService = {
    * @returns {Promise<Object|null>} 返回找到的菜单对象或null
    */
   async detail(id) {
-    const res = await db.findById({
-      query: { id },
-      field: ["id", "username", "avatar", "status"],
-    });
+    try {
+      const res = await this.findById({
+        query: { id },
+        field: ["id", "username", "avatar", "status"],
+      });
 
-    if (!res) {
-      return null;
+      if (!res) {
+        return null;
+      }
+
+      // 查询 sys_user_role 表获取角色信息
+      const roles = await this.knex("sys_user_role")
+        .select("role_id")
+        .where("user_id", id)
+        .first();
+
+      const _role = await this.knex("sys_role")
+        .select("key")
+        .where("id", roles.role_id)
+        .first();
+
+      // 将角色信息添加到用户详情对象中
+      res.data.role = _role.key;
+
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-
-    // 查询 sys_user_role 表获取角色信息
-    const roles = await knex("sys_user_role")
-      .select("role_id")
-      .where("user_id", id).first();
-
-     const _role = await knex("sys_role")
-      .select("key")
-      .where("id", roles.role_id).first();
-
-    // 将角色信息添加到用户详情对象中
-    res.data.role = _role.key;
-
-    return res;
-  },
+  }
 
   /**
    * @description 删除菜单
@@ -53,21 +60,26 @@ let SysUserService = {
    * @returns {Promise<boolean>} 操作是否成功
    */
   async delete(id) {
-    let res = await db.delete({ id });
-    return res;
-  },
+    try {
+      let res = await super.delete({ id });
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
   /**
    * @description 获取分页菜单列表
    * @param {Object} options - 分页查询参数
    * @returns {Promise<Object>} 包含菜单列表、总数等信息的对象
    */
-  async list({cur = 1, pageSize = 10}) {
+  async list({ cur = 1, pageSize = 10 }) {
     try {
       // 查询个数
-      const total = await knex(model).count("id", { as: "count" });
+      const total = await this.knex(this.model).count("id", { as: "count" });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex("sys_user as u")
+      const list = await this.knex("sys_user as u")
         .select(
           "u.id",
           "u.username",
@@ -93,15 +105,15 @@ let SysUserService = {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 增
   async create({ role_id, ...params }) {
     try {
       // 等待事务完成
-      await knex.transaction(async (trx) => {
+      await this.knex.transaction(async (trx) => {
         // 插入用户数据并获取新插入行的 id
-        const [userId] = await trx(model).insert(params).returning("id");
+        const [userId] = await trx(this.model).insert(params).returning("id");
         // 将用户和角色的关联信息插入到 sys_user_role 表中
         await trx("sys_user_role").insert({
           user_id: userId,
@@ -114,28 +126,28 @@ let SysUserService = {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   //改
-  async update({userId,role_id, ...params }) {
-    return knex.transaction(async (trx) => {
+  async update({ userId, role_id, ...params }) {
+    return this.knex.transaction(async (trx) => {
       try {
-       // 更新 sys_role 表
-      if (Object.keys(params).length > 0) {
-        await trx(model).where("id", userId).update(params);
-      }
+        // 更新 sys_role 表
+        if (Object.keys(params).length > 0) {
+          await trx(this.model).where("id", userId).update(params);
+        }
 
-      // 尝试更新 sys_user_role 表
-      const rowsAffected = await trx("sys_user_role")
-        .where("user_id", userId)
-        .update({ role_id });
+        // 尝试更新 sys_user_role 表
+        const rowsAffected = await trx("sys_user_role")
+          .where("user_id", userId)
+          .update({ role_id });
 
-      // 如果没有更新任何行，则插入新记录
-      if (rowsAffected === 0) {
-        await trx("sys_user_role").insert({ user_id: userId, role_id });
-      }
+        // 如果没有更新任何行，则插入新记录
+        if (rowsAffected === 0) {
+          await trx("sys_user_role").insert({ user_id: userId, role_id });
+        }
 
-      return true; // 表示操作成功
+        return true; // 表示操作成功
       } catch (error) {
         console.error("Error updating role and menus:", error);
         throw error; // 抛出错误以便调用者知道操作失败
@@ -144,4 +156,4 @@ let SysUserService = {
   }
 }
 
-export default SysUserService;
+export default new SysUserService();

@@ -1,18 +1,13 @@
 import dayjs from "dayjs";
 const {
   config,
-  helper: {
-    setToken, getToken, 
-  },
-  common: {
-    success, fail ,
-  },
+  helper: { setToken, getToken },
+  common: { success, fail },
 } = Chan;
 
 import ConfigType from "../service/ConfigType.js";
 
-let ConfigTypeController  = {
-
+let ConfigTypeController = {
   async list(req, res, next) {
     try {
       const query = req.query || {};
@@ -36,8 +31,8 @@ let ConfigTypeController  = {
   // 查
   async detail(req, res, next) {
     try {
-      let {id} = req.query;
-     
+      let { id } = req.query;
+
       const data = await ConfigType.detail(id);
       res.json(data);
     } catch (err) {
@@ -65,8 +60,7 @@ let ConfigTypeController  = {
     } catch (err) {
       next(err);
     }
-  }
-
-}
+  },
+};
 
 export default ConfigTypeController;

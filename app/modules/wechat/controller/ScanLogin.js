@@ -46,7 +46,7 @@ const loginQrCode = async (req, res) => {
       scan_id: scanId,
       status: 0, // 0:未扫码
       expire_time: expireTime,
-      client_ip: req.cookies._i ,
+      client_ip: req.cookies._i,
       created_at: new Date(),
       updated_at: new Date(),
     });
@@ -78,8 +78,8 @@ const verifyServer = (req, res) => {
 
   // 验证签名
   if (!verifyEventSignature(signature, timestamp, nonce)) {
-    console.error('签名验证失败');
-    return res.status(403).send('Invalid signature');
+    console.error("签名验证失败");
+    return res.status(403).send("Invalid signature");
   }
 
   // 验证通过，返回 echostr
@@ -89,57 +89,63 @@ const verifyServer = (req, res) => {
  * 2. 接收微信公众号扫码/关注事件推送
  */
 const eventCallback = async (req, res) => {
- try {
+  try {
     // 1. 先验证 POST 请求的签名（微信对 POST 也会传 signature 等参数）
     const { signature, timestamp, nonce } = req.query;
     if (!verifyEventSignature(signature, timestamp, nonce)) {
-      console.error('POST 请求签名验证失败');
-      return res.status(403).send('Invalid signature');
+      console.error("POST 请求签名验证失败");
+      return res.status(403).send("Invalid signature");
     }
 
     // 2. 手动解析 XML 请求体（避免依赖中间件的问题）
     const xmlStr = await new Promise((resolve, reject) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk.toString('utf-8'); // 拼接 Buffer 为字符串
+      let data = "";
+      req.on("data", (chunk) => {
+        data += chunk.toString("utf-8"); // 拼接 Buffer 为字符串
       });
-      req.on('end', () => resolve(data));
-      req.on('error', (err) => reject(err));
+      req.on("end", () => resolve(data));
+      req.on("error", (err) => reject(err));
     });
 
     if (!xmlStr) {
-      throw new Error('未接收到 XML 数据');
+      throw new Error("未接收到 XML 数据");
     }
 
     // 3. 解析 XML 为 JSON
     const eventData = await xml2json(xmlStr);
-    console.log('解析到事件数据:', eventData);
 
     // 4. 提取事件参数（注意：不同 XML 解析工具可能有不同的结构，需根据实际调整）
     const eventType = eventData.Event || eventData.xml?.Event; // 兼容可能的嵌套结构
-    const sceneStr = (eventData.EventKey || eventData.xml?.EventKey)?.replace('qrscene_', '') || '';
+    const sceneStr =
+      (eventData.EventKey || eventData.xml?.EventKey)?.replace(
+        "qrscene_",
+        ""
+      ) || "";
     const openid = eventData.FromUserName || eventData.xml?.FromUserName;
     const unionid = eventData.UnionID || eventData.xml?.UnionID || null;
 
     // 5. 处理扫码/关注事件（仅处理相关类型）
-    if (['SCAN', 'subscribe'].includes(eventType) && sceneStr.startsWith('scan_')) {
-      const scanRecord = await knex('wechat_scan_login')
-        .where('scan_id', sceneStr)
-        .where('expire_time', '>', new Date())
+    if (
+      ["SCAN", "subscribe"].includes(eventType) &&
+      sceneStr.startsWith("scan_")
+    ) {
+      const scanRecord = await knex("wechat_scan_login")
+        .where("scan_id", sceneStr)
+        .where("expire_time", ">", new Date())
         .first();
 
       if (scanRecord) {
-        await knex('wechat_scan_login')
-          .where('id', scanRecord.id)
+        await knex("wechat_scan_login")
+          .where("id", scanRecord.id)
           .update({ status: 1, openid, unionid, updated_at: new Date() });
       }
     }
 
     // 6. 必须返回 'success' 给微信，否则会重复推送
-    res.send('success');
+    res.send("success");
   } catch (error) {
-    console.error('处理事件推送失败:', error);
-    res.send('success'); // 即使出错也返回 success，避免重复推送
+    console.error("处理事件推送失败:", error);
+    res.send("success"); // 即使出错也返回 success，避免重复推送
   }
 };
 
@@ -195,7 +201,7 @@ const scanStatus = async (req, res) => {
 
         // 检查用户是否关注公众号（subscribe=1表示已关注）
         if (userInfo.subscribe !== 1) {
-          throw new Error('用户未关注公众号，无法获取完整信息');
+          throw new Error("用户未关注公众号，无法获取完整信息");
         }
 
         // 构建完整的用户信息对象，确保包含扫码登录API可能缺失的字段
@@ -204,16 +210,16 @@ const scanStatus = async (req, res) => {
           unionid: unionid || userInfo.unionid,
           // 扫码登录API可能不返回这些字段，设置默认值
           sex: userInfo.sex || 0,
-          city: userInfo.city || '',
-          country: userInfo.country || '',
-          province: userInfo.province || '',
+          city: userInfo.city || "",
+          country: userInfo.country || "",
+          province: userInfo.province || "",
         };
 
         // 复用用户同步逻辑
         const { userId } = await UserSync.syncWeChatUser({
           userInfo: completeUserInfo,
           tokenData: {},
-          ip: req.cookies._i ,
+          ip: req.cookies._i,
         });
 
         // 更新状态并生成token
@@ -221,7 +227,7 @@ const scanStatus = async (req, res) => {
           .where("id", scanRecord.id)
           .update({ status: 2 });
         const token = setToken(
-          { uid: userId, fp: req.cookies._f || "", ip: req.cookies._i},
+          { uid: userId, fp: req.cookies._f || "", ip: req.cookies._i },
           JWT_SECRET,
           JWT_EXPIRES_IN
         );

@@ -23,12 +23,11 @@
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a href="/">首页</a> /
                     {{each position}}
-                        {{if $index < position.length-1}}
-                            <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
-                            {{else}}
-                            <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
+                    {{if $index < position.length-1}} <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
+                        {{else}}
+                        <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
                         {{/if}}
-                    {{/each}}
+                        {{/each}}
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
@@ -49,7 +48,7 @@
                                             title="{{$value.title}}">{{$value.title}}</a>
                                     </h3>
                                     <p class="f-12 c-bfbfbf mb-8">
-                                        <i class="ico-20 ico-time pos-r t-4"></i> {{ dateFormat($value.createdAt, 'YYYY-MM-DD') }}
+                                        <i class="ico-20 ico-time pos-r t-4"></i> {{ dateFormat($value.createdAt,'YYYY-MM-DD') }}
                                         <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{$value.author ||'admin'}}
                                         <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{$value.pv}}）
                                         <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
@@ -79,9 +78,9 @@
                 <!-- 分页 -->
                 {{if pageHtml}}
                 <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
-                     <ul class="overflow-h center list-none" id="page">
-                       {{@ pageHtml}}
-                     </ul> 
+                    <ul class="overflow-h center list-none" id="page">
+                        {{@ pageHtml}}
+                    </ul>
                 </div>
                 {{/if}}
             </article>
@@ -147,7 +146,8 @@
                     <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
-                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
+                        <a class="el-tag mr-5 mb-5"
+                            href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
                         {{/each}}
                     </p>
                 </section>
@@ -160,8 +160,6 @@
 
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-
-
     {{include './common/js.html'}}
 </body>
 

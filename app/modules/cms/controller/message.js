@@ -1,11 +1,9 @@
 import dayjs from "dayjs";
 const {
-  common: {
-    success
-  },
+  common: { success },
 } = Chan;
 import message from "../service/message.js";
-let MessageController =  {
+let MessageController = {
   // 增
   async create(req, res, next) {
     try {
@@ -81,15 +79,15 @@ let MessageController =  {
   async list(req, res, next) {
     try {
       const { cur, pageSize = 20 } = req.query;
-      const data = await message.list(cur, pageSize);
-      data.list.forEach((ele) => {
+      const result = await message.list(cur, pageSize);
+      result.data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
       });
-      res.json({ ...success, data: data });
+      res.json({ ...success, data: result.data });
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default MessageController;

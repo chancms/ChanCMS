@@ -1,11 +1,9 @@
 const {
-  common: {
-    success, fail ,
-  },
+  common: { success, fail },
 } = Chan;
 
 import model from "../service/model.js";
-let ModelController  = {
+let ModelController = {
   // 增
   async create(req, res, next) {
     try {
@@ -60,7 +58,7 @@ let ModelController  = {
     try {
       const { id } = req.query;
       const data = await model.hasUse(id);
-      res.json({ ...success, data: data[0] });
+      res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
@@ -70,12 +68,12 @@ let ModelController  = {
   async list(req, res, next) {
     try {
       const { cur, pageSize = 10 } = req.query;
-      const data = await model.list(cur, pageSize);
-      res.json({ ...success, data });
+      const result = await model.list(cur, pageSize);
+      res.json({ ...success, data: result.data });
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default ModelController;

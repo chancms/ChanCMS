@@ -1,36 +1,33 @@
 const {
   config,
-  common: {
-    success, fail ,
-  },
+  common: { success, fail },
 } = Chan;
 
 
+const handleResponse = (req, files) => {
+  const isArray = Array.isArray(files);
+  const result = (isArray ? files : [files]).map((file) => ({
+    originalname: file.originalname,
+    filename: file.filename,
+    path: `/${file.path.replace(/\\/g, "/").replace(/^app\//, "")}`,
+    url: `${req.protocol}://${req.get("host")}/${file.path.replace(
+      /^app\//,
+      ""
+    )}`,
+    size: file.size,
+    mimetype: file.mimetype,
+  }));
 
-  const handleResponse = (req, files) => {
-    const isArray = Array.isArray(files);
-    const result = (isArray ? files : [files]).map((file) => ({
-      originalname: file.originalname,
-      filename: file.filename,
-      path: `/${file.path.replace(/\\/g, "/").replace(/^app\//, "")}`,
-      url: `${req.protocol}://${req.get("host")}/${file.path.replace(
-        /^app\//,
-        ""
-      )}`,
-      size: file.size,
-      mimetype: file.mimetype,
-    }));
+  return isArray ? result : result[0];
+};
 
-    return isArray ? result : result[0];
-  }
-
-let UploadController  = {
+let UploadController = {
   // 单文件上传
   async uploadFile(req, res, next) {
     try {
       if (!req.file) throw new Error("未收到文件");
       res.json({
-        code: 200,
+        ...success,
         data: handleResponse(req, req.file),
       });
     } catch (err) {
@@ -43,7 +40,7 @@ let UploadController  = {
     try {
       if (!req.files?.length) throw new Error("未收到文件");
       res.json({
-        code: 200,
+        ...success,
         data: handleResponse(req, req.files),
       });
     } catch (err) {
@@ -57,7 +54,7 @@ let UploadController  = {
       if (!req.file) throw new Error("未收到图片文件");
       const result = handleResponse(req, req.file);
       res.json({
-        code: 200,
+        ...success,
         data: {
           ...result,
           thumbnail: `${result.url}?width=200`, // 可扩展缩略图
@@ -76,15 +73,11 @@ let UploadController  = {
         ...item,
         thumbnail: `${item.url}?width=200`,
       }));
-      res.json({ code: 200, data });
+      res.json({ ...success, data });
     } catch (err) {
       next(err);
     }
   },
 
-
- 
- 
-}
-
+};
 export default UploadController;

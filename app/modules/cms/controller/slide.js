@@ -1,8 +1,6 @@
 import dayjs from "dayjs";
 const {
-  common: {
-    success, fail ,
-  },
+  common: { success, fail },
 } = Chan;
 
 import slide from "../service/slide.js";
@@ -69,11 +67,11 @@ let SlideController = {
   async list(req, res, next) {
     try {
       const { cur, cid = 0, pageSize = 10 } = req.query;
-      const data = await slide.list(cur, pageSize, cid);
-      data.list.forEach((ele) => {
+      const result = await slide.list(cur, pageSize, cid);
+      result.data.list.forEach((ele) => {
         ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
-      res.json({ ...success, data: data });
+      res.json({ ...success, data: result.data });
     } catch (err) {
       next(err);
     }
@@ -97,7 +95,7 @@ let SlideController = {
     } catch (err) {
       next(err);
     }
-  }
-}
+  },
+};
 
 export default SlideController;

@@ -23,33 +23,32 @@
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a href="/">首页</a> /
                     {{each position}}
-                        {{if $index < position.length-1}}
-                            <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
-                            {{else}}
-                            <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
+                    {{if $index < position.length-1}} <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
+                        {{else}}
+                        <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
                         {{/if}}
-                    {{/each}}
+                        {{/each}}
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
                     {{if articleList.list.length>0}}
-                        <!-- border-dashed pt-20 pb-20 -->
-                        <div class="flex flex-wrap gap-7">
-                            {{each articleList.list}}
-                            {{if $value.img}}
-                            <figure class="flex list-img-item justify-between mt-10 pos-r">
-                                <a href="{{$value.path}}/article-{{$value.id}}.html"
-                                title="{{$value.title}}">
-                                <img class="w-full" src="{{$value.img}}" alt="{{$value.title}}" title="{{$value.title}}">
+                    <!-- border-dashed pt-20 pb-20 -->
+                    <div class="flex flex-wrap gap-7">
+                        {{each articleList.list}}
+                        {{if $value.img}}
+                        <figure class="flex list-img-item justify-between mt-10 pos-r">
+                            <a href="{{$value.path}}/article-{{$value.id}}.html" title="{{$value.title}}">
+                                <img class="w-full" src="{{$value.img}}" alt="{{$value.title}}"
+                                    title="{{$value.title}}">
                                 <figcaption class="overlay flex-end">
                                     <p class="title">{{$value.title}}</p>
                                 </figcaption>
-                                </a>
-                            </figure>
-                            {{/if}}
-                            {{/each}}
-                        </div>
-                        
+                            </a>
+                        </figure>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+
                     {{else}}
                     <div class="el-empty">
                         <div class="mt-35 mb-35 f-30">
@@ -66,9 +65,9 @@
                 <!-- 分页 -->
                 {{if pageHtml}}
                 <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
-                     <ul class="overflow-h center list-none" id="page">
-                       {{@ pageHtml}}
-                     </ul> 
+                    <ul class="overflow-h center list-none" id="page">
+                        {{@ pageHtml}}
+                    </ul>
                 </div>
                 {{/if}}
             </article>
@@ -77,11 +76,9 @@
 
     <!-- footer -->
     {{include './common/footer.html'}}
-
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
 
-    
     {{include './common/js.html'}}
 </body>
 

@@ -1,62 +1,59 @@
 const {
-  knex,
- helper:{arrToObj},
+  helper: { arrToObj },
 } = Chan;
 
-let model = "cms_frag";
-let db = Chan.Service(knex, model);
-const pageSize = 100;
-let FragService = {
+class FragService extends Chan.Service {
+  constructor() {
+    super(Chan.knex, "cms_frag");
+  }
 
   // 新增
   async create(body) {
     try {
-      const result = await knex(model).insert(body);
-      return result ? "success" : "fail";
+      const res = await this.insert(body);
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 删
   async delete(id) {
     try {
-      const result = await knex(model).where("id", "=", id).del();
-      return result ? "success" : "fail";
+      const res = await super.delete({ id });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 修改
   async update(body) {
-    const { id } = body;
-    delete body.id;
+    const { id, ...params } = body;
     try {
-      const result = await knex(model).where("id", "=", id).update(body);
-      return result ? "success" : "fail";
+      const res = await super.update({ query: { id }, params });
+      return res;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 获取全量frag，默认100个cur = 1,
-  async list(pageSize = 100) {
+  async list(cur = 1) {
     try {
-      // 查询个数
-      // const total = await knex(model).count('id', { as: 'count' });
-      //  const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex
+      const total = await this.knex(this.model).count("id", { as: "count" });
+      const offset = parseInt((cur - 1) * this.pageSize);
+      const list = await this.knex
         .select(["name", "mark", "content"])
-        .from(model)
-        .limit(pageSize)
-        // .offset(offset)
+        .from(this.model)
+        .limit(this.pageSize)
+        .offset(offset)
         .orderBy("id", "desc");
 
-      const frags = arrToObj(list, "name","content");
+      const frags = arrToObj(list, "name", "content");
       return frags;
       // const count = total[0].count || 1;
       // return {
@@ -69,44 +66,42 @@ let FragService = {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 查
   async detail(id) {
     try {
-      const data = await knex
-        .select(["id", "name", "mark", "content", "type"])
-        .from(model)
-        .where("id", "=", id);
-      return data[0];
+      const res = await this.findById({
+        query: { id },
+        field: ["id", "name", "mark", "content", "type"],
+      });
+      return res.data;
     } catch (err) {
       console.error(err);
       throw err;
     }
-  },
+  }
 
   // 搜索
   async search(key = "", cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const total = key
-        ? await knex(model)
+        ? await this.knex(this.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .count("id", { as: "count" })
-        : await knex(model).count("id", { as: "count" });
+        : await this.knex(this.model).count("id", { as: "count" });
       // 查询个数
       const offset = parseInt((cur - 1) * pageSize);
       const list = key
-        ? await knex
+        ? await this.knex(this.model)
             .select(["id", "name", "mark"])
-            .from(model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc")
-        : await knex
+        : await this.knex(this.model)
             .select(["id", "name", "mark"])
-            .from(model)
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc");
@@ -125,4 +120,4 @@ let FragService = {
   }
 }
 
-export default FragService;
+export default new FragService();
